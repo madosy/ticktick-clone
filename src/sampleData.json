@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "type": "folder",
+    "title": "Self-Development",
+    "order": 1
+  },
+  {
+    "id": "1a",
+    "type": "list",
+    "title": "Programming",
+    "order": 1,
+    "parentid": "1"
+  },
+  {
+    "id": "1aa",
+    "type": "todo",
+    "title": "Finish todo list project",
+    "description": "Some details about the project blah blah",
+    "dueDate": "1/1/2024",
+    "priority": null,
+    "order": 1,
+    "parentid": "1a"
+  },
+  {
+    "id": "1ab",
+    "type": "todo",
+    "title": "Pet my dog",
+    "description": "he is the cutest",
+    "dueDate": "1/1/2024",
+    "priority": null,
+    "order": 2,
+    "parentid": "1a"
+  }
+]
