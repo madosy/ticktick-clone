@@ -1,7 +1,204 @@
-.app-container > div {
-    display: block;
-    min-width: 50px;
-    min-height: 50px;
-    background-color: #d3d3d3;
-    margin: 5px;
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: none;
+    box-sizing: border-box;
+
+}
+
+html {
+    scrollbar-color: rgba(0, 0, 0, 10%) rgba(0, 0, 0, 0);
+    scrollbar-width: thin;
+}
+
+/* WebKit and Chromiums */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 10%);
+    border-radius: 5px;
+}
+
+//https://colorhunt.co/palette/f5efe6e8dfcaaebdca7895b2
+
+$beige: rgb(245, 239, 230);
+$greige: rgb(232, 223, 202);
+$light-blue:rgb(174, 189, 202);
+$dark-blue: rgb(120, 149, 178);
+$delete: pink;
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    height: 100%;
+    height: -moz-available;
+    /* WebKit-based browsers will ignore this. */
+    height: -webkit-fill-available;
+    /* Mozilla-based browsers will ignore this. */
+}
+
+body {
+    background-color: $beige;
+
+    display: grid;
+    grid-template-rows: 1fr;
+    place-items: center;
+
+}
+
+@mixin label($property_name) {
+    &::before {
+        content: ($property_name);
+        position: absolute;
+        background-color: rgba(255, 255, 255, 80%);
+        border: solid gray 1px;
+        border-radius: 3px;
+        font-size: 10px;
+
+    }
+}
+
+#app-container {
+    width: 80vw;
+    min-width: 300px;
+    max-width: 1440px;
+    height: 80vh;
+    margin: auto;
+
+    background-color: $greige;
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-columns: 60px 2.5fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "nav list detail";
+
+    transition: all 0.15s ease-in-out ;
+
+
+    .nav-column {
+        @include label('.nav-column');
+
+        background-color: $dark-blue;
+        border-radius: 15px 0 0 15px;
+        grid-area: nav;
+
+    }
+
+
+    .list-container {
+        background-color: $light-blue;
+        grid-area: list;
+        display: grid;
+        grid-template-columns: 200px 1fr 1fr;
+        grid-template-rows: 1fr;
+        max-height: 80vh;
+
+        @include label('.list-container ---->');
+        border-radius: 0 15px 15px 0;
+
+
+
+
+
+        .list-column {
+            @include label('.list-column');
+
+            margin-top: 20px;
+            background-color: $light-blue;
+            overflow-y: hidden;
+
+            &:hover {
+                overflow-y: auto;
+            }
+
+        }
+
+        .list-view {
+            @include label('.list-view');
+
+
+
+            grid-column: span 2;
+            grid-column-end: -1;
+            background-color: $greige;
+            max-height: 80vh;
+            border-radius: 0 15px 15px 0;
+
+            display: grid;
+            grid-template-rows: 20px 45px 45px 1fr;
+            grid-template-columns: 1fr;
+
+            .header {
+                grid-row-start: 2;
+
+
+                @include label('.header');
+
+
+            }
+
+            .input-container {
+                @include label('.input-container');
+                justify-content: center;
+                grid-row-start: 3;
+                display: flex;
+                padding: 5px 20px;
+
+                #task-input {
+                    width: 100%;
+                    border-radius: 10px;
+                    background-color: lch(82% 8 89deg);
+                    padding: 10px;
+
+                    &:focus {
+                        background-color: $greige;
+                        border: 1px solid $dark-blue;
+                    }
+                }
+            }
+
+            .content {
+                @include label('.content');
+                grid-row-start: 4;
+                background-color: $greige;
+                padding: 5px 20px 0;
+                border-radius: 0 0 15px 0;
+
+                overflow-y: hidden;
+
+                &:hover {
+                    overflow-y: auto
+                }
+            }
+        }
+        
+
+    }
+    .detail-view {
+        @include label('.detail-view');
+    }
+}
+
+@media screen and (max-width: 1000px) {
+
+    #app-container {
+        grid-template-columns: 60px 1fr;
+        grid-template-areas: "nav list"
+    }
+
+    .detail-view {
+        transform: scaleX(0);
+        transform: scaleY(0);
+        // display:none;
+    }
+
 }

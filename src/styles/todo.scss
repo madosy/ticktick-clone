@@ -1,0 +1,20 @@
+.todo{
+    width: 300px;
+    border-radius: 15px;
+
+    .header {
+        background-color: aquamarine;
+        padding: 10px 15px;
+        border-radius: 15px 15px 0 0;
+        display: flex;
+        justify-content: space-between;
+
+        .due-date{
+            color: red;
+        }
+    }
+
+    .description {
+        padding: 15px;
+    }
+}

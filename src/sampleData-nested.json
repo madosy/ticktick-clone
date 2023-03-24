@@ -1,0 +1,32 @@
+[
+    {
+        "id": "1",
+        "type": "folder",
+        "title": "Self-Development",
+        "items": [
+            {
+                "id": "1a",
+                "type": "list",
+                "title": "Programming",
+                "items": [
+                    {
+                        "id": "1aa",
+                        "type": "todo",
+                        "title": "Finish todo list project",
+                        "description": "Some details about the project blah blah",
+                        "dueDate": "1/1/2024",
+                        "priority": null
+                    },
+                    {
+                        "id": "1ab",
+                        "type": "todo",
+                        "title": "Pet my dog",
+                        "description": "he is the cutest",
+                        "dueDate": "1/1/2024",
+                        "priority": null
+                    }
+                ]
+            }
+        ]
+    }
+]
