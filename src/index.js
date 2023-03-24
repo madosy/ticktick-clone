@@ -1,6 +1,6 @@
 import "./styles/index.scss";
 import "./styles/todo.scss";
-import model from "./model";
+import { getData, getPanelList } from "./model";
 
 console.log("I'm called from index.js");
 
@@ -12,3 +12,6 @@ observer.observe(mydoc, {
   characterData: true,
   subtree: true,
 });
+
+console.log(getPanelList());
+console.log(getPanelList("1a"));

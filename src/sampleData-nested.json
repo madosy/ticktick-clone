@@ -28,5 +28,20 @@
                 ]
             }
         ]
+    },
+    {
+        "id": "2a",
+                "type": "list",
+                "title": "Programming",
+                "items": [
+                    {
+                        "id": "1aa",
+                        "type": "todo",
+                        "title": "Finish todo list project",
+                        "description": "Some details about the project blah blah",
+                        "dueDate": "1/1/2024",
+                        "priority": null
+                    }
+                ]
     }
 ]

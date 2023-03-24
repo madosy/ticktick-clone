@@ -1,18 +1,23 @@
 [
     {
+        "id": 0,
+        "type": "folder",
+        "title": "",
+        "ordered_children_id": ["1", "3a"]
+    },
+    {
         "id": "1",
         "type": "folder",
         "title": "Self-Development",
-        "order": 1,
+        "parentid": 0,
         "ordered_children_id": ["1a"]
     },
     {
         "id": "1a",
         "type": "list",
         "title": "Programming",
-        "order": 1,
         "ordered_children_id": ["1ab", "1aa"],
-        "parentid": "1"
+        "parentid": 0
     },
     {
         "id": "1aa",
@@ -21,7 +26,6 @@
         "description": "Some details about the project blah blah",
         "dueDate": "1/1/2024",
         "priority": null,
-        "order": 1,
         "parentid": "1a"
     },
     {
@@ -31,7 +35,13 @@
         "description": "he is the cutest",
         "dueDate": "1/1/2024",
         "priority": null,
-        "order": 0,
         "parentid": "1a"
+    },
+    {
+        "id": "3a",
+        "type": "list",
+        "title": "Programming",
+        "ordered_children_id": ["1ab", "1aa"],
+        "parentid": 0
     }
 ]

@@ -1,16 +1,42 @@
 // import my json data file into memory
-import sampleData from "./sampleData.json";
+import data from "./sampleData.json";
 import nestedSampleData from "./sampleData-nested.json";
-import { View as ViewModule } from "./view";
 
-let View = new ViewModule();
+function getIndexByID(id) {
+  const id_list = data.map((item) => item.id);
+  return id_list.indexOf(id);
+}
 
-// SELECT, INSERT, UPDATE, DELETE functions defined and exported.
-console.log("I'm called from model.js");
+function getIndexByProperty(property, value) {
+  const propertyList = data.map((item) => item[property]);
+  const indList = propertyList.reduce((acc, currentVal, ind) => {
+    if (currentVal == value) acc.push(ind);
+    return acc;
+  }, []);
+  return indList;
+}
 
-// Get only folder items
-console.log(...sampleData.sort());
-// console.log(...nestedSampleData[0].items[0].items[0]);
+let getData = function (id = "none") {
+  if (id == "none") return [...data];
+  else {
+    const ind = getIndex(id);
+    return data[ind];
+  }
+};
 
-// let nestedItem = nestedSampleData[0].items[0].items[0];
-// console.log(View.addTodoItem(nestedItem));
+let getPanelList = function (id = 0) {
+  let parentInd = getIndexByID(id);
+  let parentObj = data[parentInd];
+  let childrenInd = parentObj.ordered_children_id;
+
+  const childrenObj = childrenInd.reduce((acc, cv) => {
+    const childObjInd = getIndexByID(cv);
+    const childObj = data[childObjInd];
+    acc.push(childObj);
+    return acc;
+  }, []);
+
+  return childrenObj;
+};
+
+export { getData, getPanelList };

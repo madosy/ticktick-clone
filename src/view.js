@@ -9,6 +9,42 @@ class View {
         <p class="description">${description}</p>`;
     document.body.querySelector("#app-container").appendChild(todo);
   }
+
+  // list column item generation:
+
+  makeListColumn(data) {
+    function generateListColumn(inputArr) {
+      const listColumn = document.createElement("div");
+      listColumn.classList.add("list-column");
+      inputArr.forEach((item) => {
+        const itemForAppend = generateListItem(item);
+        listColumn.appendChild(itemForAppend);
+      });
+      return listColumn;
+    }
+  }
 }
 
-export { View };
+function generateListItem({ id, type, title, items }) {
+  const listItem = document.createElement("div");
+  listItem.classList = "item";
+  //   listItem.dataset = id;
+  console.log(items);
+
+  listItem.innerHTML = `<span class="icon">😃</span>
+          <span class="title">${title}</span>
+          <span class="count">${items.length}</span>`;
+
+  return listItem;
+}
+
+function updateListColumn(data) {
+  const listColumn = document.body.querySelector(".list-column");
+  console.log(data);
+  data.forEach((item) => {
+    const itemForAppend = generateListItem(item);
+    listColumn.appendChild(itemForAppend);
+  });
+}
+
+export { View, updateListColumn };
