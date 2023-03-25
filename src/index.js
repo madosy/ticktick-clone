@@ -1,22 +1,41 @@
 import "./styles/index.scss";
 import "./styles/todo.scss";
 import "./styles/list-panel.scss";
-import { getData, getPanelList } from "./model";
-import { updateListColumn } from "./view";
 
-console.log("I'm called from index.js");
+import { placeFolderOrder } from "./view";
 
-let mydoc = document.querySelector(".todo-desc");
-let observer = new MutationObserver(() => console.log(new Date()));
-observer.observe(mydoc, {
-  childList: true,
-  attributes: true,
-  characterData: true,
-  subtree: true,
+import { Todo, Folder } from "./dataAccessor";
+
+const listPanelFolder = new Folder("List Panel Items");
+const myFolder = new Folder("Professional Projects");
+const myOtherFolder = new Folder("Personal Projects");
+const myTodo = new Todo("Pet my dog");
+listPanelFolder.addChild(myFolder);
+listPanelFolder.addChild(myOtherFolder);
+myFolder.addChild(myTodo);
+
+console.log(listPanelFolder);
+
+Folder.prototype.returnParentAndChildren = function (
+  callbackfn = (input) => console.log(input),
+  option = 0 // 1 will inlcude parent
+) {
+  if (option == 1) callbackfn(this);
+  if (this.count() > 0) {
+    const childrenArray = this.children;
+    childrenArray.forEach((child) => callbackfn(child));
+  }
+};
+
+(input) => {
+  const itemToAppend = placeFolderOrder(input);
+  listPanel.appendChild(itemToAppend);
+  itemToAppend.dataset.id = this.parentID;
+};
+
+const listPanel = document.body.querySelector(".list-panel");
+listPanelFolder.returnParentAndChildren((input) => {
+  const itemToAppend = placeFolderOrder(input);
+  listPanel.appendChild(itemToAppend);
 });
-
-console.log(getPanelList());
-console.log(getPanelList("1a"));
-
-const listData = getPanelList();
-updateListColumn(listData);
+// ----

@@ -1,7 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;1,700&display=swap');
 
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;1,700&display=swap');
-
-
+// Clear Default Browser Styling
 *,
 *::before,
 *::after {
@@ -10,44 +9,30 @@
     border: 0;
     background-color: none;
     box-sizing: border-box;
-
     font-family: 'Open Sans', sans-serif;
-
 }
 
+// Scrollbar Styling
 html {
     scrollbar-color: rgba(0, 0, 0, 10%) rgba(0, 0, 0, 0);
     scrollbar-width: thin;
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 10%);
+        border-radius: 5px;
+    }
 }
 
-/* WebKit and Chromiums */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background-color: rgba(0, 0, 0, 0);
-}
+// Label Mixin for Troubleshooting. Delete Later
+@import "./dev-mix.scss";
 
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 10%);
-    border-radius: 5px;
-}
+// Color Configuration
+@import "./color-theme.scss";
 
-//https://colorhunt.co/palette/f5efe6e8dfcaaebdca7895b2
-
-// original color scheme;
-// $background: rgb(245, 239, 230);
-// $light-contentbody: rgb(232, 223, 202);
-// $light-main:rgb(174, 189, 202);
-// $darker-main: rgb(120, 149, 178);
-// $input: darken( rgb(232, 223, 202), 10%);
-
-
-// NUDE THEME
-$background: #E4D0D0;
-$light-contentbody:#F5EBEB;
-$light-main: hsl(0, 28%, 77%);
-$darker-main: #867070;
-$input: lighten($light-main, 10%);
 
 
 html,
@@ -56,30 +41,14 @@ body {
     height: 100vh;
     height: 100%;
     height: -moz-available;
-    /* WebKit-based browsers will ignore this. */
     height: -webkit-fill-available;
-    /* Mozilla-based browsers will ignore this. */
 }
 
 body {
     background-color: $background;
-
     display: grid;
     grid-template-rows: 1fr;
     place-items: center;
-
-}
-
-@mixin label($property_name) {
-    &:hover::before {
-        content: ($property_name);
-        position: absolute;
-        background-color: rgba(255, 255, 255, 80%);
-        border: solid gray 1px;
-        border-radius: 3px;
-        font-size: 10px;
-
-    }
 }
 
 #app-container {
@@ -114,7 +83,7 @@ body {
     }
 
 
-    .list-container {
+    .mid-container {
 
         background-color: $light-main;
         grid-area: list;
@@ -123,15 +92,15 @@ body {
         grid-template-rows: 1fr;
         max-height: 80vh;
 
-        // @include label('.list-container ---->');
+        // @include label('.mid-container ---->');
         border-radius: 0 15px 15px 0;
 
 
 
 
 
-        .list-column {
-            @include label('.list-column');
+        .list-panel {
+            @include label('.list-panel');
 
             margin-top: 20px;
             background-color: $light-main;
@@ -143,7 +112,7 @@ body {
 
         }
 
-        .list-view {
+        .todo-panel {
             @include label('.list-view');
 
 
@@ -162,7 +131,7 @@ body {
             grid-template-rows: 20px 45px 45px 1fr;
             grid-template-columns: 1fr;
 
-            .header {
+            .selected-list {
                 grid-row-start: 2;
 
 
@@ -171,7 +140,7 @@ body {
 
             }
 
-            .input-container {
+            .todo-input-container {
                 @include label('.input-container');
                 justify-content: center;
                 grid-row-start: 3;
@@ -191,7 +160,7 @@ body {
                 }
             }
 
-            .content {
+            .todo-list {
                 @include label('.content');
                 grid-row-start: 4;
                 background-color: $light-contentbody;
@@ -210,8 +179,8 @@ body {
         
 
     }
-    .detail-view {
-        @include label('.detail-view');
+    .detail-panel {
+        @include label('.detail-panel');
         // background-color: #867070;
         overflow: hidden;
         grid-area: detail;
@@ -232,10 +201,10 @@ body {
         grid-template-columns: 60px 1fr 0px;
         // grid-template-areas: "nav list"
 
-        .list-container{
+        .mid-container{
             transition: all 0.2s ease; //needed for column transition
         }
-        .detail-view {
+        .detail-panel {
             overflow: hidden;
             white-space: nowrap;
         }
@@ -264,11 +233,11 @@ body {
    
 
     #app-container {
-        .list-container{
+        .mid-container{
             
 
             grid-template-columns: 0px 1fr 1fr;
-            div.list-column {
+            div.list-panel {
                 
                 // visibility: hidden;
                 overflow: hidden;
@@ -283,7 +252,7 @@ body {
                 
 
             }
-            div.list-column {
+            div.list-panel {
                 
                 // visibility: hidden;
                 overflow: hidden;

@@ -1,0 +1,16 @@
+//https://colorhunt.co/palette/f5efe6e8dfcaaebdca7895b2
+
+// original color scheme;
+// $background: rgb(245, 239, 230);
+// $light-contentbody: rgb(232, 223, 202);
+// $light-main:rgb(174, 189, 202);
+// $darker-main: rgb(120, 149, 178);
+// $input: darken( rgb(232, 223, 202), 10%);
+
+
+// NUDE THEME
+$background: #E4D0D0;
+$light-contentbody:#F5EBEB;
+$light-main: hsl(0, 28%, 77%);
+$darker-main: #867070;
+$input: lighten($light-main, 10%);

@@ -44,25 +44,39 @@ function updateListColumn(data) {
   data.forEach((item) => {
     const itemForAppend = createListItem(item);
     listColumn.appendChild(itemForAppend);
+    itemForAppend.dataset.id = item.id;
+    if (item.type == "folder")
+      itemForAppend.addEventListener("click", () => console.log("hello"));
   });
 }
 
-// <div class="list">
-// <span class="material-symbols-outlined">list</span>
-// <span class="title">Dummy Todo List</span>
-// <span class="count">2</span>
-// </div>
-
-const createListItem = ({ title, type, ordered_children_id }) => {
-  const count = ordered_children_id.length;
+const createListItem = ({ title, type, id, count }) => {
   const item = document.createElement("div");
   item.classList.add("list");
+  item.dataset.id = id;
   item.innerHTML = `
-<span class="material-symbols-outlined">${type}</span>
+<span class="material-symbols-outlined">folder</span>
 <span class="title">${title}</span>
 <span class="count">${count}</span>
 `;
+  if (type == "folder") {
+    console.log("use folder creator");
+  }
   return item;
 };
 
-export { View, updateListColumn };
+function placeFolderOrder(folderObject) {
+  const itemPlacedForOrder = {
+    title: folderObject.title,
+    id: folderObject.id,
+    parentID: folderObject.parentID,
+    count: folderObject.count(),
+  };
+
+  const createdItem = createListItem(itemPlacedForOrder);
+  return createdItem;
+}
+
+function createFolderItem() {}
+
+export { placeFolderOrder };
