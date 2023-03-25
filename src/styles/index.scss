@@ -1,3 +1,7 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;1,700&display=swap');
+
+
 *,
 *::before,
 *::after {
@@ -6,6 +10,8 @@
     border: 0;
     background-color: none;
     box-sizing: border-box;
+
+    font-family: 'Open Sans', sans-serif;
 
 }
 
@@ -39,7 +45,7 @@ html {
 // NUDE THEME
 $background: #E4D0D0;
 $light-contentbody:#F5EBEB;
-$light-main: #D5B4B4;
+$light-main: hsl(0, 28%, 77%);
 $darker-main: #867070;
 $input: lighten($light-main, 10%);
 
@@ -65,7 +71,7 @@ body {
 }
 
 @mixin label($property_name) {
-    &::before {
+    &:hover::before {
         content: ($property_name);
         position: absolute;
         background-color: rgba(255, 255, 255, 80%);
@@ -113,7 +119,7 @@ body {
         background-color: $light-main;
         grid-area: list;
         display: grid;
-        grid-template-columns: 200px 1fr 1fr;
+        grid-template-columns: 300px 1fr 1fr;
         grid-template-rows: 1fr;
         max-height: 80vh;
 
@@ -287,7 +293,7 @@ body {
                 // transform-origin: bottom right;
 
 
-                z-index: 10;
+
                 
                 // height: 0;
                 

@@ -42,9 +42,27 @@ function updateListColumn(data) {
   const listColumn = document.body.querySelector(".list-column");
   console.log(data);
   data.forEach((item) => {
-    const itemForAppend = generateListItem(item);
+    const itemForAppend = createListItem(item);
     listColumn.appendChild(itemForAppend);
   });
 }
+
+// <div class="list">
+// <span class="material-symbols-outlined">list</span>
+// <span class="title">Dummy Todo List</span>
+// <span class="count">2</span>
+// </div>
+
+const createListItem = ({ title, type, ordered_children_id }) => {
+  const count = ordered_children_id.length;
+  const item = document.createElement("div");
+  item.classList.add("list");
+  item.innerHTML = `
+<span class="material-symbols-outlined">${type}</span>
+<span class="title">${title}</span>
+<span class="count">${count}</span>
+`;
+  return item;
+};
 
 export { View, updateListColumn };
