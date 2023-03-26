@@ -1,55 +1,3 @@
-class View {
-  addTodoItem({ title, description, dueDate }) {
-    const todo = document.createElement("div");
-    todo.classList.add("todo");
-    todo.innerHTML = `
-        <div class="header">
-        <span class="title">${title}</span> <span class="due-date">${dueDate}</span>
-        </div>
-        <p class="description">${description}</p>`;
-    document.body.querySelector("#app-container").appendChild(todo);
-  }
-
-  // list column item generation:
-
-  makeListColumn(data) {
-    function generateListColumn(inputArr) {
-      const listColumn = document.createElement("div");
-      listColumn.classList.add("list-column");
-      inputArr.forEach((item) => {
-        const itemForAppend = generateListItem(item);
-        listColumn.appendChild(itemForAppend);
-      });
-      return listColumn;
-    }
-  }
-}
-
-function generateListItem({ id, type, title, items }) {
-  const listItem = document.createElement("div");
-  listItem.classList = "item";
-  //   listItem.dataset = id;
-  console.log(items);
-
-  listItem.innerHTML = `<span class="icon">😃</span>
-          <span class="title">${title}</span>
-          <span class="count">${items.length}</span>`;
-
-  return listItem;
-}
-
-function updateListColumn(data) {
-  const listColumn = document.body.querySelector(".list-column");
-  console.log(data);
-  data.forEach((item) => {
-    const itemForAppend = createListItem(item);
-    listColumn.appendChild(itemForAppend);
-    itemForAppend.dataset.id = item.id;
-    if (item.type == "folder")
-      itemForAppend.addEventListener("click", () => console.log("hello"));
-  });
-}
-
 const createListItem = ({ title, type, id, count }) => {
   const item = document.createElement("div");
   item.classList.add("list");
@@ -57,11 +5,23 @@ const createListItem = ({ title, type, id, count }) => {
   item.innerHTML = `
 <span class="material-symbols-outlined">folder</span>
 <span class="title">${title}</span>
-<span class="count">${count}</span>
-`;
+<span class="count">${count}</span>`;
   if (type == "folder") {
     console.log("use folder creator");
   }
+  return item;
+};
+
+const createTodoItem = ({ title, id, parentID }) => {
+  const item = document.createElement("div");
+  const currentTitle = title.textContent;
+  item.classList.add("list");
+  item.dataset.id = id;
+  item.dataset.pid = parentID;
+  item.innerHTML = `
+<span class="material-symbols-outlined">list</span>
+<span class="title">${currentTitle}</span>`;
+
   return item;
 };
 
@@ -77,6 +37,33 @@ function placeFolderOrder(folderObject) {
   return createdItem;
 }
 
-function createFolderItem() {}
+function placeTodoOrder(todoObject) {
+  const itemPlacedForOrder = {
+    title: todoObject.title,
+    id: todoObject.id,
+    parentID: todoObject.parentID,
+  };
 
-export { placeFolderOrder };
+  const createdItem = createTodoItem(itemPlacedForOrder);
+  return createdItem;
+}
+
+function updateListPanel(rootFolder) {
+  const listPanel = document.body.querySelector(".list-panel");
+  listPanel.innerHTML = "";
+  rootFolder.returnParentAndChildren((input) => {
+    const itemToAppend = placeFolderOrder(input);
+    listPanel.appendChild(itemToAppend);
+  });
+}
+
+function updateTodoPanel(activeFolder) {
+  const todoList = document.body.querySelector(".todo-list");
+  todoList.innerHTML = "";
+  activeFolder.returnParentAndChildren((input) => {
+    const itemToAppend = placeTodoOrder(input);
+    todoList.appendChild(itemToAppend);
+  });
+}
+
+export { updateListPanel, updateTodoPanel };

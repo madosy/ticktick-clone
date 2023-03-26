@@ -140,14 +140,14 @@ body {
 
             }
 
-            .todo-input-container {
+            .todo-container {
                 @include label('.input-container');
                 justify-content: center;
                 grid-row-start: 3;
                 display: flex;
                 padding: 5px 20px;
 
-                #task-input {
+                #todo {
                     width: 100%;
                     border-radius: 10px;
                     background-color: $input;
@@ -188,7 +188,7 @@ body {
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1300px) {
 
     
 
