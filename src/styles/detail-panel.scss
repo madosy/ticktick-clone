@@ -7,7 +7,7 @@
 
   display: grid;
   //   grid-template-columns: 1px 1fr 1px;
-  grid-template-rows: 40px 40px 1fr 40px;
+  grid-template-rows: 40px min-content 1fr 40px;
   grid-template-areas:
     "empty date empty"
     "empty title empty"
@@ -53,6 +53,14 @@
 .todo-title {
   font-weight: 800;
   font-size: 1.1rem;
+}
+
+.todo-desc {
+  overflow: hidden;
+  text-align: justify;
+  &:hover {
+    overflow-y: auto;
+  }
 }
 
 // border: solid 1px $darker-main;
