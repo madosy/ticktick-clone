@@ -1,0 +1,58 @@
+& {
+  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  //   border-left: 1px solid $darker-main;
+
+  display: grid;
+  //   grid-template-columns: 1px 1fr 1px;
+  grid-template-rows: 40px 40px 1fr 40px;
+  grid-template-areas:
+    "empty date empty"
+    "empty title empty"
+    "empty description empty"
+    "empty bottom empty";
+  gap: 10px;
+}
+
+& > div {
+  overflow: hidden;
+}
+
+.todo-date {
+  display: grid;
+  grid-template-columns: 30px 1fr 30px;
+  grid-template-rows: 1fr;
+  place-items: center;
+
+  input[type="checkbox"] {
+    border: 1px solid $darker-main;
+    width: 15px;
+    height: 15px;
+    background-color: blue;
+  }
+
+  .date::before {
+    display: inline-block;
+    content: "";
+    width: 1px;
+    height: 15px;
+    background-color: $darker-main;
+    margin-left: 5px;
+    margin-right: 10px;
+    opacity: 20%;
+    position: relative;
+    top: 2px;
+  }
+  .date {
+    justify-self: left;
+  }
+}
+
+.todo-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+// border: solid 1px $darker-main;

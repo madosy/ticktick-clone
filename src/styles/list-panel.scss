@@ -7,41 +7,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 .material-symbols-outlined {
-    font-size: 1.2rem;
-    font-variation-settings:
-        'FILL'0,
-        'wght'400,
-        'GRAD'0,
-        'opsz'24
+  font-size: 1.2rem;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 .list-panel {
-    padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  .list {
+    display: grid;
+    padding: 10px 15px;
+    grid-template-columns: min-content min-content 1fr;
+    white-space: nowrap;
+    gap: 15px;
+    align-items: center;
 
-    .list {
-        display: grid;
-        padding: 10px 15px;
-        grid-template-columns: min-content min-content 1fr;
-        white-space: nowrap;
-        gap: 15px;
-        align-items: center;
+    font-size: 0.83rem;
+    color: white;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
 
-        font-size: 0.83rem;
-        color: white;
-        text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    background-color: hsla(0, 28%, 50%, 30%);
+    border-radius: 5px;
 
-        background-color: hsla(0, 28%, 50%, 30%);
-        border-radius: 5px;
-
-        .count {
-            justify-self: flex-end;
-            align-self: center;
-            font-size: 0.65rem;
-        }
+    .count {
+      justify-self: flex-end;
+      align-self: center;
+      font-size: 0.65rem;
     }
-
+  }
 }

@@ -1,30 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700;800&display=swap");
 
 // Clear Default Browser Styling
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background-color: none;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: none;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
 }
 
 // Scrollbar Styling
 html {
-    scrollbar-color: rgba(0, 0, 0, 10%) rgba(0, 0, 0, 0);
-    scrollbar-width: thin;
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-        background-color: rgba(0, 0, 0, 0);
-    }
-    ::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 10%);
-        border-radius: 5px;
-    }
+  scrollbar-color: rgba(0, 0, 0, 10%) rgba(0, 0, 0, 0);
+  scrollbar-width: thin;
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 10%);
+    border-radius: 5px;
+  }
 }
 
 // Label Mixin for Troubleshooting. Delete Later
@@ -33,244 +33,95 @@ html {
 // Color Configuration
 @import "./color-theme.scss";
 
-
-
 html,
 body {
-    width: 100vw;
-    height: 100vh;
-    height: 100%;
-    height: -moz-available;
-    height: -webkit-fill-available;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100%;
+  height: -moz-available;
+  height: -webkit-fill-available;
 }
 
 body {
-    background-color: $background;
-    display: grid;
-    grid-template-rows: 1fr;
-    place-items: center;
+  background-color: $background;
+  display: grid;
+  grid-template-rows: 1fr;
+  place-items: center;
 }
 
 #app-container {
-    // transition: all 0.3s ease;
+  position: relative;
+  width: 90vw;
+  min-width: 300px;
+  max-width: 1440px;
+  height: 80vh;
+  margin: auto;
 
-    width: 80vw;
-    min-width: 300px;
-    max-width: 1440px;
-    height: 80vh;
-    margin: auto;
+  background-color: $light-contentbody;
+  border-radius: 15px;
 
-    background-color: $light-contentbody;
-    border-radius: 15px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 60px 250px 1fr 1fr;
+  grid-template-rows: 20px 1fr;
+  grid-template-areas:
+    "nav empty empty empty"
+    "nav list todo detail";
 
-    display: grid;
-    grid-template-columns: 60px minmax(450px, 2fr) minmax(250px, 1fr);
-    grid-template-rows: 1fr;
-    grid-template-areas: "nav list detail";
-
-
-
-
-
-    .nav-column {
-        @include label('.nav-column');
-
-        background-color: $darker-main;
-        border-radius: 15px 0 0 15px;
-        grid-area: nav;
-
-
-    }
-
-
-    .mid-container {
-
-        background-color: $light-main;
-        grid-area: list;
-        display: grid;
-        grid-template-columns: 300px 1fr 1fr;
-        grid-template-rows: 1fr;
-        max-height: 80vh;
-
-        // @include label('.mid-container ---->');
-        border-radius: 0 15px 15px 0;
-
-
-
-
-
-        .list-panel {
-            @include label('.list-panel');
-
-            margin-top: 20px;
-            background-color: $light-main;
-            overflow-y: hidden;
-
-            &:hover {
-                overflow-y: auto;
-            }
-
-        }
-
-        .todo-panel {
-            @include label('.list-view');
-
-
-
-            
-
-
-
-            grid-column: span 2;
-            grid-column-end: -1;
-            background-color: $light-contentbody;
-            max-height: 80vh;
-            border-radius: 0 15px 15px 0;
-
-            display: grid;
-            grid-template-rows: 20px 45px 45px 1fr;
-            grid-template-columns: 1fr;
-
-            .selected-list {
-                grid-row-start: 2;
-
-
-                @include label('.header');
-
-
-            }
-
-            .todo-container {
-                @include label('.input-container');
-                justify-content: center;
-                grid-row-start: 3;
-                display: flex;
-                padding: 5px 20px;
-
-                #todo {
-                    width: 100%;
-                    border-radius: 10px;
-                    background-color: $input;
-                    padding: 10px;
-
-                    &:focus {
-                        background-color: $light-contentbody;
-                        border: 1px solid $darker-main;
-                    }
-                }
-            }
-
-            .todo-list {
-                @include label('.content');
-                grid-row-start: 4;
-                background-color: $light-contentbody;
-                padding: 5px 20px 0;
-                border-radius: 0 0 15px 0;
-
-
-
-                overflow-y: hidden;
-
-                &:hover {
-                    overflow-y: auto
-                }
-            }
-        }
-        
-
-    }
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 60px 250px 1fr 0fr;
     .detail-panel {
-        @include label('.detail-panel');
-        // background-color: #867070;
-        overflow: hidden;
-        grid-area: detail;
-
+      padding: 0 !important;
+      &::before {
+        display: none;
+      }
     }
-}
+  }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 60px 0px 1fr 0px;
+  }
+  transition: grid 0.2s ease-in-out;
 
-@media screen and (max-width: 1300px) {
+  & > div {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    overflow: hidden;
+  }
 
-    
+  .nav-column {
+    background-color: $darker-main;
+    border-radius: 15px 0px 0px 15px;
+    grid-area: nav;
+  }
 
-    #app-container {
-        // transition: all 0.3s ease;
+  .list-panel {
+    grid-area: list;
+    background-color: $light-contentbody;
+  }
 
-        animation-name: slide-description;
-        animation-duration: 0.2s;
+  .todo-panel {
+    grid-area: todo;
+  }
+  @import "./todo-panel.scss";
 
-        grid-template-columns: 60px 1fr 0px;
-        // grid-template-areas: "nav list"
+  .detail-panel {
+    grid-area: detail;
+    @import "./detail-panel.scss";
 
-        .mid-container{
-            transition: all 0.2s ease; //needed for column transition
-        }
-        .detail-panel {
-            overflow: hidden;
-            white-space: nowrap;
-        }
+    &::before {
+      content: "";
+      width: 1px;
+      height: 100%;
+      background-image: linear-gradient(
+        $light-contentbody,
+        $darker-main,
+        $darker-main
+      );
+      display: block;
+      position: absolute;
+      top: 0;
+      opacity: 20%;
     }
-    @keyframes slide-description {
-        0% {
-            grid-template-columns: 60px 2fr 1fr;
-        }
-        10%{
-            grid-template-columns: 60px 1fr 200px;
-        }
-        100% {
-            grid-template-columns: 60px 1fr 0px;
-        }
-        // 100% {
-        //     grid-template-columns: 60px minmax(450px, 2fr) 0px;
-        // }
-    }
-
-
-
-}
-
-@media screen and (max-width: 700px) {
-
-   
-
-    #app-container {
-        .mid-container{
-            
-
-            grid-template-columns: 0px 1fr 1fr;
-            div.list-panel {
-                
-                // visibility: hidden;
-                overflow: hidden;
-                white-space: nowrap;
-
-                // transform: translateX(-100%);
-                // transform-origin: bottom right;
-
-
-                
-                height: 0;
-                
-
-            }
-            div.list-panel {
-                
-                // visibility: hidden;
-                overflow: hidden;
-                white-space: nowrap;
-
-                // transform: translateX(-100%);
-                // transform-origin: bottom right;
-
-
-
-                
-                // height: 0;
-                
-
-            }
-            .list-view{
-                grid-row: 1;
-            }
-        }
-    } 
+  }
 }

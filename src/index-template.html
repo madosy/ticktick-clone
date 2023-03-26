@@ -1,35 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
     <div id="app-container">
-        <div class="nav-column"></div>
-        <div class="mid-container">
-
-            <div class="list-panel">
-
-            </div>
-
-            <div class="todo-panel">
-                <div class="selected-list">List Title</div>
-                <div class="todo-container">
-                    <input type="text" name="todo" id="todo" placeholder="I need to pet my dogs @ 2pm">
-                </div>
-                <div class="todo-list"></div>
-            </div>
-
+      <div class="nav-column"></div>
+      <div class="list-panel"></div>
+      <div class="todo-panel">
+        <div class="selected-list">List Title</div>
+        <div class="todo-container">
+          <input
+            type="text"
+            name="todo"
+            id="todo"
+            placeholder="I need to pet my dogs @ 2pm"
+          />
         </div>
-        <div class="detail-panel">
-            <div></div>
-            <div class="todo-date">12/1/2023</div>
-            <div contenteditable class="todo-name">Title is here</div>
-            <div contenteditable class="todo-desc">This is some desc about the <b>task</b></div>
-            <div class="todo-tools">A</div>
+        <div class="todo-list"></div>
+      </div>
+      <div class="detail-panel">
+        <div class="todo-date">
+          <input type="checkbox" name="detail-panel-checkbox" id="detail-panel-checkbox">
+          <span class="date">12/1/2023</span>
+          <span class="priority">🚩</span>
         </div>
+        <div contenteditable class="todo-title">Title is here</div>
+        <div contenteditable class="todo-desc">
+          This is some desc about the <b>task</b>
+        </div>
+        <div class="todo-tools">A</div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
