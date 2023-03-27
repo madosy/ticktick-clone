@@ -33,8 +33,8 @@ updateListPanel(getRootFolder());
 let folders = document.querySelectorAll(".list");
 folders.forEach((item) =>
   item.addEventListener("click", (e) => {
-    console.log(e.target);
-    const folderID = e.target.dataset.id;
+    console.log("closest: " + e.target.closest(".list"));
+    const folderID = e.target.closest(".list").dataset.id;
     console.log(folderID);
     activeFolder = getFolderByID(folderID);
     console.log(activeFolder);
