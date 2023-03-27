@@ -10,7 +10,7 @@ export class Folder {
   constructor(title, parentID) {
     this.title = title;
     this.parentID = parentID;
-    this.id = Math.random();
+    this.id = "folder" + Math.random();
   }
   children = [];
   addChild(obj) {
@@ -38,6 +38,16 @@ Folder.prototype.returnParentAndChildren = function (
 };
 
 function createTodo(todo, folder) {}
+
+export function getFolderByID(input) {
+  const folderInds = rootFolder.children.map((folder) => folder.id);
+  console.log(folderInds);
+
+  const myFolderInd = folderInds.indexOf(input);
+  console.log(`my folder ind: ${myFolderInd}`);
+
+  return rootFolder.children[myFolderInd];
+}
 
 //Initialize Root folder and inbox list
 const rootFolder = new Folder("Root");

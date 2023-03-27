@@ -14,8 +14,8 @@ const createListItem = ({ title, type, id, count }) => {
 
 const createTodoItem = ({ title, id, parentID }) => {
   const item = document.createElement("div");
-  const currentTitle = title.textContent;
-  item.classList.add("list");
+  const currentTitle = title;
+  item.classList.add("todo");
   item.dataset.id = id;
   item.dataset.pid = parentID;
   item.innerHTML = `
