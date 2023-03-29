@@ -4,6 +4,9 @@ export class Todo {
     this.parentID = parentID;
     this.id = "todo" + Math.random();
   }
+  priority;
+  dueDate;
+  details;
 }
 
 export class Folder {
@@ -37,27 +40,32 @@ Folder.prototype.returnParentAndChildren = function (
   }
 };
 
+Folder.prototype.getTodos = function () {
+  return this.children;
+};
+
 function createTodo(todo, folder) {}
 
 export function getFolderByID(input) {
-  const folderInds = rootFolder.children.map((folder) => folder.id);
-  console.log(folderInds);
-
-  const myFolderInd = folderInds.indexOf(input);
-  console.log(`my folder ind: ${myFolderInd}`);
-
-  return rootFolder.children[myFolderInd];
+  const folderListByID = root.children.map((folder) => folder.id);
+  const myFolderInd = folderListByID.indexOf(input);
+  return root.children[myFolderInd];
 }
 
-//Initialize Root folder and inbox list
-const rootFolder = new Folder("Root");
-rootFolder.addChild(new Folder("Inbox"));
+//Initialize Root and inbox folders
+const root = new Folder("Root");
+const inbox = new Folder("Inbox");
+root.addChild(inbox);
 
 const exampleFolder = new Folder("Doggy Related");
 const exampleTodo = new Todo("Pet my dog at 2pm");
-rootFolder.addChild(exampleFolder);
+root.addChild(exampleFolder);
 exampleFolder.addChild(exampleTodo);
 
 export function getRootFolder() {
-  return rootFolder;
+  return root;
+}
+
+export function getInboxFolder() {
+  return inbox;
 }

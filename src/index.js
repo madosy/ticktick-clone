@@ -5,6 +5,7 @@ import "./controller";
 
 import { updateListPanel, updateTodoPanel } from "./view";
 import { Todo, Folder, getRootFolder, getFolderByID } from "./dataAccessor";
+import { details_component } from "./details-component";
 
 const todo = () => {
   const todoInput = document.querySelector("input#todo");
@@ -43,3 +44,7 @@ folders.forEach((item) =>
 );
 
 function setActiveFolder(node) {}
+
+window.addEventListener("DOMContentLoaded", () => {
+  details_component.initComponent();
+});
