@@ -14,7 +14,6 @@ export const details_component = (() => {
     details_panel.appendChild(default_template);
   };
   const initTodo = () => {
-    details_component.classList.add("initialized");
     const template = `
     <div class="todo-date">
         <input type="checkbox" name="detail-panel-checkbox" id="detail-panel-checkbox">
