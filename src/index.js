@@ -46,5 +46,5 @@ folders.forEach((item) =>
 function setActiveFolder(node) {}
 
 window.addEventListener("DOMContentLoaded", () => {
-  details_component.initComponent();
+  details_component.initDefault();
 });

@@ -1,6 +1,20 @@
+import default_image from "./assets/detail-panel-default.png";
+
 export const details_component = (() => {
   const details_panel = document.body.querySelector(".detail-panel");
-  const initComponent = () => {
+  const initDefault = () => {
+    const default_template = document.createElement("div");
+    default_template.classList.add("default-template");
+    const message = document.createElement("p");
+    message.textContent = "Click task title to view the detail";
+    const myImage = document.createElement("img");
+    myImage.src = default_image;
+    default_template.appendChild(myImage);
+    default_template.appendChild(message);
+    details_panel.appendChild(default_template);
+  };
+  const initTodo = () => {
+    details_component.classList.add("initialized");
     const template = `
     <div class="todo-date">
         <input type="checkbox" name="detail-panel-checkbox" id="detail-panel-checkbox">
@@ -17,5 +31,5 @@ export const details_component = (() => {
     details_panel.querySelector("todo-desc").innerHTML = todo.details;
   };
 
-  return { updateUI };
+  return { initDefault, updateUI };
 })();
