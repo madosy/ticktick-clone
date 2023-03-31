@@ -24,6 +24,7 @@ const todoApp = (() => {
     const myProjects = getProjects();
     listPanel.render(myProjects);
     const myTodos = getTodos(activeFolder);
+    todoPanel.render(activeFolder.title);
     todoPanel.render(myTodos);
     detailsPanel.initDefault();
   };
@@ -35,6 +36,7 @@ const todoApp = (() => {
         const folderID = e.target.closest(".list").dataset.id;
         activeFolder = getFolderByID(folderID);
         pubsub.publish("set active folder", [getTodos(activeFolder)]);
+        pubsub.publish("set active folder", [activeFolder.title]);
       })
     );
   };
@@ -42,7 +44,7 @@ const todoApp = (() => {
   pubsub.subscribe("set active folder", todoPanel.render);
   pubsub.subscribe("add todo", todoPanel.render);
 
-  return { initialize };
+  return { initialize, activeFolder };
 })();
 
 window.addEventListener("DOMContentLoaded", () => {
