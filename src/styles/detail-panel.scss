@@ -1,4 +1,6 @@
-& {
+@import "./color-theme.scss";
+
+.detail-panel {
   position: relative;
   padding-left: 20px;
   padding-right: 20px;
@@ -14,10 +16,10 @@
     "empty description empty"
     "empty bottom empty";
   gap: 10px;
-}
 
-& > div {
-  overflow: hidden;
+  & > div {
+    overflow: hidden;
+  }
 }
 
 .default-template {
