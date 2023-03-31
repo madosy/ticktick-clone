@@ -1,3 +1,6 @@
+// Color Configuration
+@import "./color-theme.scss";
+
 .todo-panel {
   display: grid;
   grid-template-rows: min-content min-content 1fr;
@@ -22,5 +25,32 @@
   overflow-y: hidden;
   &:hover {
     overflow-y: auto;
+  }
+}
+
+.todo {
+  display: grid;
+  grid-template-columns: min-content 1fr minmax(0px, max-content);
+  grid-template-rows: max-content, max-content;
+  column-gap: 10px;
+  row-gap: 5px;
+  align-items: center;
+  background-color: lighten($input, 4%);
+  padding: 5px 10px;
+  font-size: 0.9rem;
+
+  .dueDate {
+    font-size: 0.65rem;
+    color: red;
+  }
+
+  .details {
+    grid-column: span 3;
+    font-size: 0.7rem;
+    color: $darker-main;
+    max-height: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

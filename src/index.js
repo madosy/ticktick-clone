@@ -1,13 +1,13 @@
 import "./styles/index.scss";
-import "./styles/todo.scss";
+import "./styles/todo-panel.scss";
 import "./styles/list-panel.scss";
-import "./controller";
 
 import {
   getFolderByID,
   getProjects,
   getTodos,
   getInboxFolder,
+  getRootFolder,
 } from "./dataAccessor";
 import { listPanel } from "./list-panel-component";
 import { details_component as detailsPanel } from "./details-component";
@@ -16,6 +16,7 @@ import { todoPanel } from "./todo-panel-component";
 var pubsub = require("pubsub.js");
 
 const todoApp = (() => {
+  console.log(getRootFolder());
   let activeFolder = getInboxFolder(); //initialize inbox folder as active folder
 
   const initialize = () => {

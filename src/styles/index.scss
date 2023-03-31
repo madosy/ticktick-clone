@@ -103,11 +103,9 @@ body {
   .todo-panel {
     grid-area: todo;
   }
-  @import "./todo-panel.scss";
 
   .detail-panel {
     grid-area: detail;
-    @import "./detail-panel.scss";
 
     &::before {
       content: "";
