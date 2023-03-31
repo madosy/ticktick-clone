@@ -59,19 +59,3 @@ export const todoPanel = (() => {
 
   return { render };
 })();
-
-const todoMaker = () => {
-  const addTodo = () => {
-    const user_input = document.body.querySelector("input#todo");
-    todoInput.addEventListener("keydown", (e) => {
-      if (e.keyCode == 13) {
-        let todoContent = todoInput.value;
-        const newTodo = new Todo(todoContent);
-        activeFolder.addChild(newTodo);
-        updateListPanel(getRootFolder());
-        todoInput.value = "";
-        updateTodoPanel(activeFolder);
-      }
-    });
-  };
-};

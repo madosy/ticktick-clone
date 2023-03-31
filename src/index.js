@@ -9,6 +9,7 @@ import {
   getTodos,
   getInboxFolder,
   getRootFolder,
+  addTodo,
 } from "./dataAccessor";
 import { listPanel } from "./list-panel-component";
 import { details_component as detailsPanel } from "./details-component";
@@ -21,27 +22,41 @@ const todoApp = (() => {
   let activeFolder = getInboxFolder(); //initialize inbox folder as active folder
 
   const initialize = () => {
-    const myProjects = getProjects();
-    listPanel.render(myProjects);
-    const myTodos = getTodos(activeFolder);
+    listPanel.render(getProjects());
     todoPanel.render(activeFolder.title);
-    todoPanel.render(myTodos);
+    todoPanel.render(getTodos(activeFolder));
     detailsPanel.initDefault();
   };
 
-  const makeFoldersClickable = () => {
+  const detectActiveFolder = () => {
     let folders = document.querySelectorAll(".list");
     folders.forEach((item) =>
       item.addEventListener("click", (e) => {
         const folderID = e.target.closest(".list").dataset.id;
         activeFolder = getFolderByID(folderID);
-        pubsub.publish("set active folder", [getTodos(activeFolder)]);
-        pubsub.publish("set active folder", [activeFolder.title]);
+        pubsub.publish("render list items", [getTodos(activeFolder)]);
+        pubsub.publish("render list title", [activeFolder.title]);
       })
     );
   };
-  pubsub.subscribe("render list panel", makeFoldersClickable);
-  pubsub.subscribe("set active folder", todoPanel.render);
+
+  const detectTodoUserInput = () => {
+    const userInput = document.body.querySelector("input#todo");
+    console.log(userInput);
+    userInput.addEventListener("keydown", (e) => {
+      if (e.keyCode == 13 && userInput.value.replace(/\s/g, "").length > 0) {
+        console.log(activeFolder.id);
+        addTodo({ title: userInput.value, parentID: activeFolder.id });
+        userInput.value = "";
+        pubsub.publish("render list items", [getTodos(activeFolder)]);
+      }
+    });
+  };
+
+  pubsub.subscribe("render list panel", detectActiveFolder);
+  pubsub.subscribe("render list panel", detectTodoUserInput);
+  pubsub.subscribe("render list items", todoPanel.render);
+  pubsub.subscribe("render list title", todoPanel.render);
   pubsub.subscribe("add todo", todoPanel.render);
 
   return { initialize, activeFolder };

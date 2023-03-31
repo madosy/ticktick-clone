@@ -38,6 +38,7 @@
   background-color: lighten($input, 4%);
   padding: 5px 10px;
   font-size: 0.9rem;
+  margin-bottom: 5px;
 
   .dueDate {
     font-size: 0.65rem;
@@ -52,5 +53,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  input:checked + .title {
+    text-decoration: line-through;
+    color: lighten(gray, 20%);
   }
 }

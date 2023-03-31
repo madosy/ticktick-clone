@@ -17,9 +17,9 @@ export class Folder {
     this.id = "folder" + Math.random();
   }
   children = [];
-  addChild(obj) {
-    this.children.push(obj);
-    obj.parentID = this.id;
+  addChild(todo) {
+    this.children.push(todo);
+    todo.parentID = this.id;
   }
   removeChild(obj) {
     const ind = this.children.findIndex((child) => child.id == obj.id);
@@ -91,4 +91,11 @@ export function getRootFolder() {
 
 export function getInboxFolder() {
   return inbox;
+}
+
+export function addTodo({ title, parentID }) {
+  const myTodo = new Todo(title);
+  const parentFolder = getFolderByID(parentID);
+  parentFolder.addChild(myTodo);
+  console.log("Todo added!");
 }
