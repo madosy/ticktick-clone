@@ -57,13 +57,4 @@ function updateListPanel(rootFolder) {
   });
 }
 
-function updateTodoPanel(activeFolder) {
-  const todoList = document.body.querySelector(".todo-list");
-  todoList.innerHTML = "";
-  activeFolder.returnParentAndChildren((input) => {
-    const itemToAppend = placeTodoOrder(input);
-    todoList.appendChild(itemToAppend);
-  });
-}
-
 export { updateListPanel, updateTodoPanel };

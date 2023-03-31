@@ -3,48 +3,46 @@ import "./styles/todo.scss";
 import "./styles/list-panel.scss";
 import "./controller";
 
-import { updateListPanel, updateTodoPanel } from "./view";
-import { Todo, Folder, getRootFolder, getFolderByID } from "./dataAccessor";
-import { details_component } from "./details-component";
+import {
+  getFolderByID,
+  getProjects,
+  getTodos,
+  getInboxFolder,
+} from "./dataAccessor";
+import { listPanel } from "./list-panel-component";
+import { details_component as detailsPanel } from "./details-component";
+import { todoPanel } from "./todo-panel-component";
 
-const todo = () => {
-  const todoInput = document.querySelector("input#todo");
-};
+var pubsub = require("pubsub.js");
 
-// Temporarily set root folder to Inbox for testing
-let activeFolder = getRootFolder().children[1];
-// When you press enter, add todo to active list
-const todoInput = document.body.querySelector("input#todo");
-todoInput.addEventListener("keydown", (e) => {
-  if (e.keyCode == 13) {
-    let todoContent = todoInput.value;
-    const newTodo = new Todo(todoContent);
-    activeFolder.addChild(newTodo);
-    updateListPanel(getRootFolder());
-    todoInput.value = "";
-    updateTodoPanel(activeFolder);
-  }
-});
+const todoApp = (() => {
+  let activeFolder = getInboxFolder(); //initialize inbox folder as active folder
 
-console.log(getRootFolder());
+  const initialize = () => {
+    const myProjects = getProjects();
+    listPanel.render(myProjects);
+    const myTodos = getTodos(activeFolder);
+    todoPanel.render(myTodos);
+    detailsPanel.initDefault();
+  };
 
-updateListPanel(getRootFolder());
+  const makeFoldersClickable = () => {
+    let folders = document.querySelectorAll(".list");
+    folders.forEach((item) =>
+      item.addEventListener("click", (e) => {
+        const folderID = e.target.closest(".list").dataset.id;
+        activeFolder = getFolderByID(folderID);
+        pubsub.publish("set active folder", [getTodos(activeFolder)]);
+      })
+    );
+  };
+  pubsub.subscribe("render list panel", makeFoldersClickable);
+  pubsub.subscribe("set active folder", todoPanel.render);
+  pubsub.subscribe("add todo", todoPanel.render);
 
-//function that changes active folder on click
-let folders = document.querySelectorAll(".list");
-folders.forEach((item) =>
-  item.addEventListener("click", (e) => {
-    console.log("closest: " + e.target.closest(".list"));
-    const folderID = e.target.closest(".list").dataset.id;
-    console.log(folderID);
-    activeFolder = getFolderByID(folderID);
-    console.log(activeFolder);
-    updateTodoPanel(activeFolder);
-  })
-);
-
-function setActiveFolder(node) {}
+  return { initialize };
+})();
 
 window.addEventListener("DOMContentLoaded", () => {
-  details_component.initDefault();
+  todoApp.initialize();
 });

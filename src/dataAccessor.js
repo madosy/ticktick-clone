@@ -3,6 +3,7 @@ export class Todo {
     this.title = title;
     this.parentID = parentID;
     this.id = "todo" + Math.random();
+    this.checked = false;
   }
   priority;
   dueDate;
@@ -52,6 +53,24 @@ export function getFolderByID(input) {
   return root.children[myFolderInd];
 }
 
+export function getProjects() {
+  const myProjects = [];
+  root.returnParentAndChildren((project) =>
+    myProjects.push({
+      id: project.id,
+      title: project.title,
+      count: project.count(),
+    })
+  );
+  return myProjects;
+}
+
+export function getTodos(folder) {
+  const myTodos = [];
+  folder.returnParentAndChildren((todo) => myTodos.push(todo));
+  return myTodos;
+}
+
 //Initialize Root and inbox folders
 const root = new Folder("Root");
 const inbox = new Folder("Inbox");
@@ -61,6 +80,7 @@ const exampleFolder = new Folder("Doggy Related");
 const exampleTodo = new Todo("Pet my dog at 2pm");
 root.addChild(exampleFolder);
 exampleFolder.addChild(exampleTodo);
+inbox.addChild(new Todo("Love myself!"));
 
 export function getRootFolder() {
   return root;
