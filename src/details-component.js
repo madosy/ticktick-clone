@@ -11,6 +11,7 @@ const detailsPanel = (() => {
     myImage.src = default_image;
     defaultTemplate.appendChild(myImage);
     defaultTemplate.appendChild(message);
+    targetDiv.innerHTML = "";
     targetDiv.appendChild(defaultTemplate);
   };
   const initTodo = () => {
@@ -21,13 +22,19 @@ const detailsPanel = (() => {
         <span class="priority">🚩</span>
     </div>
     <div contenteditable class="todo-title">Title is here</div>
-    <div contenteditable class="todo-desc">This is some desc about the <b>task</b></div>
+    <div contenteditable class="todo-desc" placeholder="Write details about todo here"></div>
     <div class="todo-tools">A</div>`;
     targetDiv.innerHTML = template;
+    const title = targetDiv.querySelector(".todo-title");
+    const description = targetDiv.querySelector(".todo-desc");
+    title.addEventListener("input", () => console.log("title modified"));
+    description.addEventListener("input", () => console.log("desc. modified"));
   };
   const updateUI = (todo) => {
-    targetDiv.querySelector("todo-title").textContent = todo.title;
-    targetDiv.querySelector("todo-desc").innerHTML = todo.details;
+    initTodo();
+    targetDiv.querySelector(".todo-title").textContent = todo.title;
+    if (todo.details != undefined)
+      targetDiv.querySelector(".todo-desc").innerHTML = todo.details;
   };
 
   return { initDefault, updateUI };

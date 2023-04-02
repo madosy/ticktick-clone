@@ -53,6 +53,13 @@ export function getFolderByID(input) {
   return root.children[myFolderInd];
 }
 
+export function getTodoByID(folderID, todoID) {
+  const myFolder = getFolderByID(folderID);
+  const todoListByInds = myFolder.children.map((todo) => todo.id);
+  const myTodoInd = todoListByInds.indexOf(todoID);
+  return myFolder.children[myTodoInd];
+}
+
 export function getProjects() {
   const myProjects = [];
   root.returnParentAndChildren((project) =>

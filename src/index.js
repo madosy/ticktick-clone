@@ -10,6 +10,7 @@ import {
   getInboxFolder,
   getRootFolder,
   addTodo,
+  getTodoByID,
 } from "./dataAccessor";
 import { listPanel } from "./list-panel-component";
 import { detailsPanel } from "./details-component";
@@ -25,6 +26,7 @@ const todoApp = (() => {
     listPanel.render(getProjects());
     todoPanel.render(activeFolder.title);
     todoPanel.render(getTodos(activeFolder));
+    detectActiveTodo();
     detailsPanel.initDefault();
   };
 
@@ -33,9 +35,22 @@ const todoApp = (() => {
     folders.forEach((item) =>
       item.addEventListener("click", (e) => {
         const folderID = e.target.closest(".list").dataset.id;
+        if (activeFolder.id == folderID) return;
         activeFolder = getFolderByID(folderID);
         pubsub.publish("render list items", [getTodos(activeFolder)]);
         pubsub.publish("render list title", [activeFolder.title]);
+      })
+    );
+  };
+
+  const detectActiveTodo = () => {
+    const todos = document.querySelectorAll(".todo");
+    todos.forEach((todo) =>
+      todo.addEventListener("click", (e) => {
+        const folderID = activeFolder.id;
+        const todoID = e.target.closest(".todo").dataset.id;
+        const todo = getTodoByID(folderID, todoID);
+        detailsPanel.updateUI(todo);
       })
     );
   };
@@ -55,8 +70,10 @@ const todoApp = (() => {
 
   pubsub.subscribe("render list panel", detectActiveFolder);
   pubsub.subscribe("render list panel", detectTodoUserInput);
-  pubsub.subscribe("render list items", todoPanel.render);
   pubsub.subscribe("render list title", todoPanel.render);
+  pubsub.subscribe("render list title", detailsPanel.initDefault);
+  pubsub.subscribe("render list items", todoPanel.render);
+  pubsub.subscribe("render list items", detectActiveTodo);
   pubsub.subscribe("add todo", todoPanel.render);
 
   return { initialize, activeFolder };
