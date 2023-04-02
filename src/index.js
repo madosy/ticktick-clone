@@ -12,14 +12,14 @@ import {
   addTodo,
 } from "./dataAccessor";
 import { listPanel } from "./list-panel-component";
-import { details_component as detailsPanel } from "./details-component";
+import { detailsPanel } from "./details-component";
 import { todoPanel } from "./todo-panel-component";
 
-var pubsub = require("pubsub.js");
+const pubsub = require("pubsub.js");
 
 const todoApp = (() => {
   console.log(getRootFolder());
-  let activeFolder = getInboxFolder(); //initialize inbox folder as active folder
+  let activeFolder = getInboxFolder(); // initialize inbox folder as active folder
 
   const initialize = () => {
     listPanel.render(getProjects());
@@ -29,7 +29,7 @@ const todoApp = (() => {
   };
 
   const detectActiveFolder = () => {
-    let folders = document.querySelectorAll(".list");
+    const folders = document.querySelectorAll(".list");
     folders.forEach((item) =>
       item.addEventListener("click", (e) => {
         const folderID = e.target.closest(".list").dataset.id;
