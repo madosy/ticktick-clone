@@ -56,13 +56,15 @@
     margin-left: 5px;
     margin-right: 10px;
     opacity: 20%;
+    position: relative;
+    top: 3px;
   }
   .date {
     display: flex;
     gap: 10px;
     justify-self: left;
-    position: relative;
-    top: 2px;
+    // position: relative;
+    // top: 2px;
 
     input.calendar {
       background-color: rgba(0, 0, 0, 0);
