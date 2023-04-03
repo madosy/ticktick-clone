@@ -18,8 +18,8 @@ const detailsPanel = (() => {
     const template = `
     <div class="todo-date">
         <input type="checkbox" name="detail-panel-checkbox" id="detail-panel-checkbox">
-        <span class="date">12/1/2023</span>
-        <span class="priority">🚩</span>
+        <span class="date"></span>
+        <span class="priority"></span>
     </div>
     <div contenteditable class="todo-title">Title is here</div>
     <div contenteditable class="todo-desc" placeholder="Write details about todo here"></div>
@@ -33,6 +33,10 @@ const detailsPanel = (() => {
   const updateUI = (todo) => {
     initTodo();
     targetDiv.querySelector(".todo-title").textContent = todo.title;
+    // const myKeys = Object.keys(todo);
+    // myKeys.forEach( key => {
+    //   if (todo[key] == undefined) return
+    // })
     if (todo.details != undefined)
       targetDiv.querySelector(".todo-desc").innerHTML = todo.details;
   };

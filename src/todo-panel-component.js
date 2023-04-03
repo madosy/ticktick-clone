@@ -32,7 +32,11 @@ export const todoPanel = (() => {
     _dueDate.textContent = formatDate(dueDate);
     const _details = document.createElement("p");
     _details.classList.add("details");
-    _details.textContent = details;
+    if (details != undefined) {
+      const htmlTagRegex = new RegExp("</*[A-Za-z]>", "g");
+      console.log(details);
+      _details.textContent = details.replaceAll(htmlTagRegex, "");
+    }
 
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo");

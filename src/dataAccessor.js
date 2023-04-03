@@ -87,7 +87,7 @@ const exampleFolder = new Folder("Doggy Related");
 const exampleTodo = new Todo("Pet my dog at 2pm");
 exampleTodo.dueDate = new Date(2023, 2, 21);
 exampleTodo.details =
-  "Black Jack and Cookie loves pets! They are the best pals in the world. They give me so much joy and I love them so much :)";
+  "Black Jack <b>and</b> Cookie loves pets! They are the best pals in the world. <p>They give me so much joy and I love them so much :)</p>";
 root.addChild(exampleFolder);
 exampleFolder.addChild(exampleTodo);
 inbox.addChild(new Todo("Love myself!"));
