@@ -34,7 +34,6 @@ export const todoPanel = (() => {
     _details.classList.add("details");
     if (details != undefined) {
       const htmlTagRegex = new RegExp("</*[A-Za-z]>", "g");
-      console.log(details);
       _details.textContent = details.replaceAll(htmlTagRegex, "");
     }
 

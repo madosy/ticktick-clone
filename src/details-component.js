@@ -1,4 +1,5 @@
 import default_image from "./assets/detail-panel-default.png";
+import { format } from "date-fns";
 
 const detailsPanel = (() => {
   const targetDiv = document.body.querySelector(".detail-panel");
@@ -24,7 +25,17 @@ const detailsPanel = (() => {
     <div contenteditable class="todo-title">Title is here</div>
     <div contenteditable class="todo-desc" placeholder="Write details about todo here"></div>
     <div class="todo-tools">A</div>`;
+
     targetDiv.innerHTML = template;
+
+    const buttonCalendar = document.createElement("input");
+    buttonCalendar.setAttribute("type", "date");
+    buttonCalendar.setAttribute("onfocus", "this.showPicker()");
+    buttonCalendar.classList.add("calendar");
+
+    const date = targetDiv.querySelector(".date");
+    date.appendChild(buttonCalendar);
+
     const title = targetDiv.querySelector(".todo-title");
     const description = targetDiv.querySelector(".todo-desc");
     title.addEventListener("input", () => console.log("title modified"));
@@ -37,6 +48,11 @@ const detailsPanel = (() => {
     // myKeys.forEach( key => {
     //   if (todo[key] == undefined) return
     // })
+
+    targetDiv
+      .querySelector("input.calendar")
+      .setAttribute("value", format(todo.dueDate, "yyyy-MM-dd"));
+
     if (todo.details != undefined)
       targetDiv.querySelector(".todo-desc").innerHTML = todo.details;
   };

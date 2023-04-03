@@ -56,11 +56,51 @@
     margin-left: 5px;
     margin-right: 10px;
     opacity: 20%;
-    position: relative;
-    top: 2px;
   }
   .date {
+    display: flex;
     justify-self: left;
+    position: relative;
+    top: 2px;
+
+    input.calendar {
+      background-color: rgba(0, 0, 0, 0);
+      width: 150px;
+
+      // &::-webkit-calendar-picker-indicator {
+      //   color: rgba(0, 0, 0, 0);
+      //   opacity: 1;
+      //   display: block;
+      //   background-repeat: no-repeat;
+      //   width: 25px;
+      //   height: 25px;
+      //   border-width: thin;
+      //   position: absolute;
+      // }
+      &::-webkit-calendar-picker-indicator {
+        position: absolute;
+        left: 5%;
+      }
+      &::-webkit-datetime-edit-fields-wrapper {
+        position: relative;
+        width: fit-content;
+        left: 10%;
+      }
+      &::-webkit-datetime-edit {
+        position: relative;
+        left: 10%;
+      }
+      &::-webkit-calendar-picker-indicator {
+        opacity: 1;
+        display: block;
+        background: url(../assets/icons/calendar.svg);
+        background-size: contain;
+        width: 15px;
+        height: 15px;
+        position: absolute;
+        left: 10%;
+      }
+    }
   }
 }
 

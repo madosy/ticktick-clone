@@ -57,10 +57,8 @@ const todoApp = (() => {
 
   const detectTodoUserInput = () => {
     const userInput = document.body.querySelector("input#todo");
-    console.log(userInput);
     userInput.addEventListener("keydown", (e) => {
       if (e.keyCode == 13 && userInput.value.replace(/\s/g, "").length > 0) {
-        console.log(activeFolder.id);
         addTodo({ title: userInput.value, parentID: activeFolder.id });
         userInput.value = "";
         pubsub.publish("render list items", [getTodos(activeFolder)]);
