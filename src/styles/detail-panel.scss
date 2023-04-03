@@ -67,23 +67,10 @@
     input.calendar {
       background-color: rgba(0, 0, 0, 0);
       width: 150px;
+      position: relative;
       outline: none;
+      overflow: visible;
 
-      // &::-webkit-calendar-picker-indicator {
-      //   color: rgba(0, 0, 0, 0);
-      //   opacity: 1;
-      //   display: block;
-      //   background-repeat: no-repeat;
-      //   width: 25px;
-      //   height: 25px;
-      //   border-width: thin;
-      //   position: absolute;
-      // }
-      &::-webkit-calendar-picker-indicator {
-        display: inline-block;
-        position: absolute;
-        left: 10%;
-      }
       &::-webkit-datetime-edit-fields-wrapper {
         display: inline-block;
       }
@@ -99,7 +86,7 @@
         width: 15px;
         height: 15px;
         position: absolute;
-        left: 10%;
+        left: -5%;
       }
     }
   }
