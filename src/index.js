@@ -70,6 +70,13 @@ const todoApp = (() => {
   pubsub.subscribe("render list panel", detectTodoUserInput);
   pubsub.subscribe("render list title", todoPanel.render);
   pubsub.subscribe("render list title", detailsPanel.initDefault);
+  pubsub.subscribe("render list title", (title) => {
+    const todoInput = document.querySelector("#todo");
+    todoInput.setAttribute(
+      "placeholder",
+      `+ Add task to "${title}". Press enter to save.`
+    );
+  });
   pubsub.subscribe("render list items", todoPanel.render);
   pubsub.subscribe("render list items", detectActiveTodo);
   pubsub.subscribe("add todo", todoPanel.render);
