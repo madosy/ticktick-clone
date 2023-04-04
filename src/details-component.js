@@ -40,6 +40,9 @@ const detailsPanel = (() => {
     initTodo();
     targetDiv.dataset.id = todo.id;
 
+    const check_field = targetDiv.querySelector("input[type='checkbox']");
+    check_field.checked = todo.checked;
+
     const title_field = targetDiv.querySelector(".todo-title");
     title_field.textContent = todo.title;
 

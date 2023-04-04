@@ -52,7 +52,7 @@ const todoApp = (() => {
         const todoID = e.target.closest(".todo").dataset.id;
         const todo = getTodoByID(folderID, todoID);
         detailsPanel.updateUI(todo);
-        detectDetailPanelChange();
+        detectTodoChange();
       })
     );
   };
@@ -68,8 +68,9 @@ const todoApp = (() => {
     });
   };
 
-  const detectDetailPanelChange = () => {
+  const detectTodoChange = () => {
     const detailPanel = document.querySelector(".detail-panel");
+    const todoPanel = document.querySelector(".todo-panel");
     const parentID = activeFolder.id;
 
     const date_field = detailPanel.querySelector(".calendar");
@@ -97,6 +98,22 @@ const todoApp = (() => {
       pubsub.publish("render todo panel", [getTodos(activeFolder)]);
     });
 
+    const todoPanel_title_fields = todoPanel.querySelectorAll(".todo > .title");
+    todoPanel_title_fields.forEach((field) =>
+      field.addEventListener("input", () => {
+        const todoID = field.closest(".todo").dataset.id;
+        pubsub.publish("todo modified", [
+          parentID,
+          todoID,
+          "title",
+          field.textContent,
+        ]);
+        const todo = getTodoByID(parentID, todoID);
+        detailsPanel.updateUI(todo);
+        detectTodoChange();
+      })
+    );
+
     const description_field = detailPanel.querySelector(".todo-desc");
     description_field.addEventListener("input", () => {
       const todoID = description_field.closest(".detail-panel").dataset.id;
@@ -107,6 +124,31 @@ const todoApp = (() => {
         description_field.innerHTML,
       ]);
       pubsub.publish("render todo panel", [getTodos(activeFolder)]);
+    });
+
+    const check_field = detailPanel.querySelector("#detail-panel-checkbox");
+    const todo_check_field = todoPanel.querySelector("input[type='checkbox']");
+    check_field.addEventListener("input", () => {
+      const todoID = check_field.closest(".detail-panel").dataset.id;
+      pubsub.publish("todo modified", [
+        parentID,
+        todoID,
+        "checked",
+        check_field.checked,
+      ]);
+      pubsub.publish("render todo panel", [getTodos(activeFolder)]);
+    });
+    todo_check_field.addEventListener("input", () => {
+      const todoID = todo_check_field.closest(".todo").dataset.id;
+      pubsub.publish("todo modified", [
+        parentID,
+        todoID,
+        "checked",
+        todo_check_field.checked,
+      ]);
+      const todo = getTodoByID(parentID, todoID);
+      detailsPanel.updateUI(todo);
+      detectTodoChange();
     });
   };
 
