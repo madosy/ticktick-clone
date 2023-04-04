@@ -33,8 +33,9 @@ export const todoPanel = (() => {
     const _details = document.createElement("p");
     _details.classList.add("details");
     if (details != undefined) {
-      const htmlTagRegex = new RegExp("</*[A-Za-z]>", "g");
-      _details.textContent = details.replaceAll(htmlTagRegex, "");
+      const dummyDiv = document.createElement("div");
+      dummyDiv.innerHTML = details; // this was the easiest way to just grab the text...
+      _details.textContent = dummyDiv.textContent;
     }
 
     const todoItem = document.createElement("div");

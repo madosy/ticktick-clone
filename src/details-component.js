@@ -35,23 +35,19 @@ const detailsPanel = (() => {
 
     const date = targetDiv.querySelector(".date");
     date.appendChild(buttonCalendar);
-
-    const title = targetDiv.querySelector(".todo-title");
-    const description = targetDiv.querySelector(".todo-desc");
-    title.addEventListener("input", () => console.log("title modified"));
-    description.addEventListener("input", () => console.log("desc. modified"));
   };
   const updateUI = (todo) => {
     initTodo();
-    targetDiv.querySelector(".todo-title").textContent = todo.title;
-    // const myKeys = Object.keys(todo);
-    // myKeys.forEach( key => {
-    //   if (todo[key] == undefined) return
-    // })
+    targetDiv.dataset.id = todo.id;
 
-    targetDiv
-      .querySelector("input.calendar")
-      .setAttribute("value", format(todo.dueDate, "yyyy-MM-dd"));
+    const title_field = targetDiv.querySelector(".todo-title");
+    title_field.textContent = todo.title;
+
+    if (todo.dueDate != undefined) {
+      targetDiv
+        .querySelector("input.calendar")
+        .setAttribute("value", format(todo.dueDate, "yyyy-MM-dd"));
+    }
 
     if (todo.details != undefined)
       targetDiv.querySelector(".todo-desc").innerHTML = todo.details;

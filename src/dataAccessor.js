@@ -106,3 +106,8 @@ export function addTodo({ title, parentID }) {
   parentFolder.addChild(myTodo);
   console.log("Todo added!");
 }
+
+export function updateTodo(parentID, todoID, propertyName, newContent) {
+  const todoForModify = getTodoByID(parentID, todoID);
+  todoForModify[propertyName] = newContent;
+}

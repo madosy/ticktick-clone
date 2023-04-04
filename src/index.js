@@ -11,6 +11,7 @@ import {
   getRootFolder,
   addTodo,
   getTodoByID,
+  updateTodo,
 } from "./dataAccessor";
 import { listPanel } from "./list-panel-component";
 import { detailsPanel } from "./details-component";
@@ -37,7 +38,7 @@ const todoApp = (() => {
         const folderID = e.target.closest(".list").dataset.id;
         if (activeFolder.id == folderID) return;
         activeFolder = getFolderByID(folderID);
-        pubsub.publish("render list items", [getTodos(activeFolder)]);
+        pubsub.publish("render todo panel", [getTodos(activeFolder)]);
         pubsub.publish("render list title", [activeFolder.title]);
       })
     );
@@ -51,6 +52,7 @@ const todoApp = (() => {
         const todoID = e.target.closest(".todo").dataset.id;
         const todo = getTodoByID(folderID, todoID);
         detailsPanel.updateUI(todo);
+        detectDetailPanelChange();
       })
     );
   };
@@ -61,8 +63,50 @@ const todoApp = (() => {
       if (e.keyCode == 13 && userInput.value.replace(/\s/g, "").length > 0) {
         addTodo({ title: userInput.value, parentID: activeFolder.id });
         userInput.value = "";
-        pubsub.publish("render list items", [getTodos(activeFolder)]);
+        pubsub.publish("render todo panel", [getTodos(activeFolder)]);
       }
+    });
+  };
+
+  const detectDetailPanelChange = () => {
+    const detailPanel = document.querySelector(".detail-panel");
+    const parentID = activeFolder.id;
+
+    const date_field = detailPanel.querySelector(".calendar");
+    date_field.addEventListener("input", () => {
+      const todoID = date_field.closest(".detail-panel").dataset.id;
+      const dateObj = new Date(Date.parse(date_field.value));
+      pubsub.publish("todo modified", [
+        parentID,
+        todoID,
+        "dueDate",
+        new Date(`${date_field.value}T00:00`),
+      ]);
+      pubsub.publish("render todo panel", [getTodos(activeFolder)]);
+    });
+
+    const title_field = detailPanel.querySelector(".todo-title");
+    title_field.addEventListener("input", () => {
+      const todoID = title_field.closest(".detail-panel").dataset.id;
+      pubsub.publish("todo modified", [
+        parentID,
+        todoID,
+        "title",
+        title_field.textContent,
+      ]);
+      pubsub.publish("render todo panel", [getTodos(activeFolder)]);
+    });
+
+    const description_field = detailPanel.querySelector(".todo-desc");
+    description_field.addEventListener("input", () => {
+      const todoID = description_field.closest(".detail-panel").dataset.id;
+      pubsub.publish("todo modified", [
+        parentID,
+        todoID,
+        "details",
+        description_field.innerHTML,
+      ]);
+      pubsub.publish("render todo panel", [getTodos(activeFolder)]);
     });
   };
 
@@ -77,9 +121,14 @@ const todoApp = (() => {
       `+ Add task to "${title}". Press enter to save.`
     );
   });
-  pubsub.subscribe("render list items", todoPanel.render);
-  pubsub.subscribe("render list items", detectActiveTodo);
+  pubsub.subscribe("render todo panel", todoPanel.render);
+  pubsub.subscribe("render todo panel", detectActiveTodo);
   pubsub.subscribe("add todo", todoPanel.render);
+  pubsub.subscribe(
+    "todo modified",
+    (parentID, todoID, propertyName, newContent) =>
+      updateTodo(parentID, todoID, propertyName, newContent)
+  );
 
   return { initialize, activeFolder };
 })();
