@@ -7,6 +7,7 @@ export default function newFolderPrompt() {
   titleField.setAttribute("placeholder", "Project Name");
 
   const cancelButton = document.createElement("button");
+  cancelButton.classList.add("cancel-button");
   cancelButton.textContent = "Cancel";
   const saveButton = document.createElement("button");
   saveButton.textContent = "Save";

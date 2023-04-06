@@ -42,12 +42,16 @@ const todoApp = (() => {
       newFolderPrompt();
       const titleField = document.querySelector(".form > input");
       const saveButton = document.querySelector(".save-button");
+      const cancelButton = document.querySelector(".cancel-button");
       const overlay = document.querySelector(".overlay");
 
       titleField.addEventListener("input", () => {
         if (titleField.value.length > 0) {
           saveButton.disabled = false;
         } else saveButton.disabled = true;
+      });
+      cancelButton.addEventListener("click", () => {
+        overlay.remove();
       });
       const submit = () => {
         const folderTitle = titleField.value;
