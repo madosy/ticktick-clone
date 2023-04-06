@@ -10,12 +10,14 @@ import {
   getInboxFolder,
   getRootFolder,
   addTodo,
+  addFolder,
   getTodoByID,
   updateTodo,
 } from "./dataAccessor";
 import { listPanel } from "./list-panel-component";
 import { detailsPanel } from "./details-component";
 import { todoPanel } from "./todo-panel-component";
+import newFolderPrompt from "./folder-prompt";
 
 const pubsub = require("pubsub.js");
 
@@ -29,6 +31,36 @@ const todoApp = (() => {
     todoPanel.render(getTodos(activeFolder));
     detectActiveTodo();
     detailsPanel.initDefault();
+    newFolder_clickHandler();
+  };
+
+  const newFolder_clickHandler = () => {
+    const addButton = document.querySelector(
+      "div.list-panel > div.header > span.add"
+    );
+    addButton.addEventListener("click", () => {
+      newFolderPrompt();
+      const titleField = document.querySelector(".form > input");
+      const saveButton = document.querySelector(".save-button");
+      const overlay = document.querySelector(".overlay");
+
+      titleField.addEventListener("input", () => {
+        if (titleField.value.length > 0) {
+          saveButton.disabled = false;
+        } else saveButton.disabled = true;
+      });
+      const submit = () => {
+        const folderTitle = titleField.value;
+        addFolder(folderTitle);
+        listPanel.render(getProjects());
+        newFolder_clickHandler();
+        overlay.remove();
+      };
+      saveButton.addEventListener("click", submit);
+      titleField.addEventListener("keydown", (e) => {
+        if (e.keyCode == 13 && saveButton.disabled == false) submit();
+      });
+    });
   };
 
   const detectActiveFolder = () => {
@@ -64,6 +96,8 @@ const todoApp = (() => {
         addTodo({ title: userInput.value, parentID: activeFolder.id });
         userInput.value = "";
         pubsub.publish("render todo panel", [getTodos(activeFolder)]);
+        listPanel.render(getProjects());
+        newFolder_clickHandler();
       }
     });
   };

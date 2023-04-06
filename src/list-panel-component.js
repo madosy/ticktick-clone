@@ -4,7 +4,7 @@ const listPanel = (() => {
   const listPanel = document.body.querySelector(".list-panel");
 
   function render(projectsArray) {
-    listPanel.innerHTML = "";
+    listPanel.innerHTML = `<div class="header">Projects <span class="add">+</span></div>`;
     projectsArray.forEach((project) => {
       const renderedItem = renderItem(project);
       listPanel.appendChild(renderedItem);
