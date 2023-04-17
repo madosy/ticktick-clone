@@ -4,7 +4,7 @@ import "./styles/list-panel.scss";
 import "./styles/detail-panel.scss";
 
 import {
-  getFolderByID,
+  getProjectByID,
   getProjects,
   getTodos,
   getInboxFolder,

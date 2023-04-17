@@ -47,14 +47,14 @@ Folder.prototype.getTodos = function () {
 
 function createTodo(todo, folder) {}
 
-export function getFolderByID(input) {
+export function getProjectByID(input) {
   const folderListByID = root.children.map((folder) => folder.id);
   const myFolderInd = folderListByID.indexOf(input);
   return root.children[myFolderInd];
 }
 
 export function getTodoByID(folderID, todoID) {
-  const myFolder = getFolderByID(folderID);
+  const myFolder = getProjectByID(folderID);
   const todoListByInds = myFolder.children.map((todo) => todo.id);
   const myTodoInd = todoListByInds.indexOf(todoID);
   return myFolder.children[myTodoInd];
@@ -102,7 +102,7 @@ export function getInboxFolder() {
 
 export function addTodo({ title, parentID }) {
   const myTodo = new Todo(title);
-  const parentFolder = getFolderByID(parentID);
+  const parentFolder = getProjectByID(parentID);
   parentFolder.addChild(myTodo);
 }
 
