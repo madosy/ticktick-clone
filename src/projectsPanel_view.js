@@ -9,10 +9,10 @@ const listPanel = (() => {
     projectsArray.forEach((project) => {
       const renderedItem = renderItem(project);
       renderedItem.addEventListener("click", (e) => {
-        pubsub.publish("select_active_proj", e.target.dataset.id);
+        pubsub.publish("select_active_proj", [e.target.dataset.id]);
       });
       renderedItem.addEventListener("dblclick", (e) => {
-        pubsub.publish("request_proj_modify", e.target.dataset.id);
+        pubsub.publish("request_proj_modify", [e.target.dataset.id]);
       });
       listPanel.appendChild(renderedItem);
     });

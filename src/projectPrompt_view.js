@@ -1,69 +1,76 @@
 import "./styles/folder-prompt.scss";
+var pubsub = require("pubsub.js");
 
 const projectPrompt = (() => {
   function newProject() {
+    const prompt = generatePrompt();
+    document.body.appendChild(prompt);
+  }
+
+  function modifyProject(projectName) {
+    const prompt = generatePrompt("proj_modify");
+    prompt.querySelector(".header").innerText = `Modify Project`;
+    prompt.querySelector("input").value = projectName;
+    document.body.appendChild(prompt);
+  }
+
+  const generatePrompt = (pubOpt = "new_folder_submit") => {
+    const container = document.createElement("div");
+
     const header = document.createElement("h1");
     header.textContent = "Add Project";
-    const titleField = document.createElement("input");
-    titleField.setAttribute("placeholder", "Project Name");
+    header.classList.add("header");
+
+    const projectNameField = document.createElement("input");
+    projectNameField.setAttribute("placeholder", "Project Name");
+    projectNameField.addEventListener("input", () => {
+      if (projectNameField.value.length > 0) {
+        saveButton.disabled = false;
+      } else saveButton.disabled = true;
+    });
 
     const cancelButton = document.createElement("button");
     cancelButton.classList.add("cancel-button");
     cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
+      overlay.remove();
+    });
+
     const saveButton = document.createElement("button");
     saveButton.textContent = "Save";
     saveButton.classList.add("save-button");
     saveButton.setAttribute("type", "submit");
     saveButton.disabled = true;
+
+    const submit = () => {
+      pubsub.publish(pubOpt, [projectNameField.value]);
+      overlay.remove();
+    };
+    saveButton.addEventListener("click", submit);
+    projectNameField.addEventListener("keydown", (e) => {
+      if (e.code == "Enter" && saveButton.disabled == false) {
+        submit();
+      }
+    });
+
     const buttonContainer = document.createElement("div");
     buttonContainer.appendChild(cancelButton);
     buttonContainer.appendChild(saveButton);
 
-    const formContainer = document.createElement("div");
-    formContainer.appendChild(header);
-    formContainer.appendChild(titleField);
-    formContainer.appendChild(buttonContainer);
-    formContainer.classList.add("form");
+    const form = document.createElement("div");
+    form.appendChild(header);
+    form.appendChild(projectNameField);
+    form.appendChild(buttonContainer);
+    form.classList.add("form");
 
     const overlay = document.createElement("div");
     overlay.classList.add("overlay");
-    overlay.appendChild(formContainer);
-    document.body.appendChild(overlay);
-  }
+    overlay.appendChild(form);
 
-  // const newFolder_clickHandler = () => {
-  //   const addButton = document.querySelector(
-  //     "div.list-panel > div.header > span.add"
-  //   );
-  //   addButton.addEventListener("click", () => {
-  //     newFolderPrompt();
-  //     const titleField = document.querySelector(".form > input");
-  //     const saveButton = document.querySelector(".save-button");
-  //     const cancelButton = document.querySelector(".cancel-button");
-  //     const overlay = document.querySelector(".overlay");
+    return overlay;
+  };
 
-  //     titleField.addEventListener("input", () => {
-  //       if (titleField.value.length > 0) {
-  //         saveButton.disabled = false;
-  //       } else saveButton.disabled = true;
-  //     });
-  //     cancelButton.addEventListener("click", () => {
-  //       overlay.remove();
-  //     });
-  //     const submit = () => {
-  //       const folderTitle = titleField.value;
-  //       addFolder(folderTitle);
-  //       listPanel.render(getProjects());
-  //       newFolder_clickHandler();
-  //       overlay.remove();
-  //     };
-  //     saveButton.addEventListener("click", submit);
-  //     titleField.addEventListener("keydown", (e) => {
-  //       if (e.keyCode == 13 && saveButton.disabled == false) submit();
-  //     });
-  //   });
-  // };
-  return { newProject };
+  return { modifyProject, newProject };
 })();
 
 export { projectPrompt };
