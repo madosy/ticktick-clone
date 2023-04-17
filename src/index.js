@@ -13,11 +13,12 @@ import {
   addFolder,
   getTodoByID,
   updateTodo,
-} from "./dataAccessor";
-import { listPanel } from "./list-panel-component";
-import { detailsPanel } from "./details-component";
-import { todoPanel } from "./todo-panel-component";
-import newFolderPrompt from "./folder-prompt";
+} from "./todoModel";
+import { listPanel } from "./projectsPanel_view";
+import { detailsPanel } from "./todoDetailsPanel_view";
+import { todoPanel } from "./todoListPanel_view";
+import newFolderPrompt from "./projectPrompt_view";
+import { projectsPanel_controller } from "./projectsPanel_controller";
 
 const pubsub = require("pubsub.js");
 
@@ -31,40 +32,7 @@ const todoApp = (() => {
     todoPanel.render(getTodos(activeFolder));
     detectActiveTodo();
     detailsPanel.initDefault();
-    newFolder_clickHandler();
-  };
-
-  const newFolder_clickHandler = () => {
-    const addButton = document.querySelector(
-      "div.list-panel > div.header > span.add"
-    );
-    addButton.addEventListener("click", () => {
-      newFolderPrompt();
-      const titleField = document.querySelector(".form > input");
-      const saveButton = document.querySelector(".save-button");
-      const cancelButton = document.querySelector(".cancel-button");
-      const overlay = document.querySelector(".overlay");
-
-      titleField.addEventListener("input", () => {
-        if (titleField.value.length > 0) {
-          saveButton.disabled = false;
-        } else saveButton.disabled = true;
-      });
-      cancelButton.addEventListener("click", () => {
-        overlay.remove();
-      });
-      const submit = () => {
-        const folderTitle = titleField.value;
-        addFolder(folderTitle);
-        listPanel.render(getProjects());
-        newFolder_clickHandler();
-        overlay.remove();
-      };
-      saveButton.addEventListener("click", submit);
-      titleField.addEventListener("keydown", (e) => {
-        if (e.keyCode == 13 && saveButton.disabled == false) submit();
-      });
-    });
+    // newFolder_clickHandler();
   };
 
   const detectActiveFolder = () => {
