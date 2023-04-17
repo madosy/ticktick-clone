@@ -2,14 +2,16 @@ var pubsub = require("pubsub.js");
 import { format } from "date-fns";
 
 export const todoPanel = (() => {
-  const render = (input) => {
-    if (typeof input == "string") renderTitle(input);
-    else renderTodos(input);
+  const render = (title, todoArray) => {
+    renderTitle(title);
+    renderTodos(todoArray);
   };
+
   const renderTitle = (title) => {
     const selectedList = document.body.querySelector(".selected-list");
     selectedList.textContent = title;
   };
+
   const renderTodos = (todos) => {
     const todoList = document.body.querySelector(".todo-list");
     todoList.innerHTML = "";

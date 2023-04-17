@@ -17,35 +17,24 @@ import {
 import { listPanel } from "./projectsPanel_view";
 import { detailsPanel } from "./todoDetailsPanel_view";
 import { todoPanel } from "./todoListPanel_view";
-import newFolderPrompt from "./projectPrompt_view";
 import { projectsPanel_controller } from "./projectsPanel_controller";
+import { todoListPanel_controller } from "./todoListPanel_controller";
+import currentUser, { getCurrentUser } from "./userModel";
 
 const pubsub = require("pubsub.js");
 
 const todoApp = (() => {
   console.log(getRootFolder());
-  let activeFolder = getInboxFolder(); // initialize inbox folder as active folder
 
   const initialize = () => {
     listPanel.render(getProjects());
-    todoPanel.render(activeFolder.title);
-    todoPanel.render(getTodos(activeFolder));
-    detectActiveTodo();
-    detailsPanel.initDefault();
-    // newFolder_clickHandler();
-  };
 
-  const detectActiveFolder = () => {
-    const folders = document.querySelectorAll(".list");
-    folders.forEach((item) =>
-      item.addEventListener("click", (e) => {
-        const folderID = e.target.closest(".list").dataset.id;
-        if (activeFolder.id == folderID) return;
-        activeFolder = getFolderByID(folderID);
-        pubsub.publish("render todo panel", [getTodos(activeFolder)]);
-        pubsub.publish("render list title", [activeFolder.title]);
-      })
-    );
+    let currentUser = getCurrentUser();
+    currentUser.setActiveProject(getInboxFolder().id); // initialize inbox folder as active folder
+
+    pubsub.publish("request_todoListPanel_update");
+
+    detailsPanel.initDefault();
   };
 
   const detectActiveTodo = () => {
@@ -158,7 +147,6 @@ const todoApp = (() => {
     });
   };
 
-  pubsub.subscribe("render list panel", detectActiveFolder);
   pubsub.subscribe("render list panel", detectTodoUserInput);
   pubsub.subscribe("render list title", todoPanel.render);
   pubsub.subscribe("render list title", detailsPanel.initDefault);
@@ -170,7 +158,7 @@ const todoApp = (() => {
     );
   });
   pubsub.subscribe("render todo panel", todoPanel.render);
-  pubsub.subscribe("render todo panel", detectActiveTodo);
+
   pubsub.subscribe("add todo", todoPanel.render);
   pubsub.subscribe(
     "todo modified",
@@ -178,7 +166,7 @@ const todoApp = (() => {
       updateTodo(parentID, todoID, propertyName, newContent)
   );
 
-  return { initialize, activeFolder };
+  return { initialize };
 })();
 
 window.addEventListener("DOMContentLoaded", () => {

@@ -14,7 +14,7 @@ const projectPrompt = (() => {
     document.body.appendChild(prompt);
   }
 
-  const generatePrompt = (pubOpt = "new_folder_submit") => {
+  const generatePrompt = (pubOpt = "proj_add") => {
     const container = document.createElement("div");
 
     const header = document.createElement("h1");
