@@ -1,10 +1,15 @@
 var pubsub = require("pubsub.js");
 
 import { projectPrompt } from "./projectPrompt_view";
-import { getProjectByID } from "./todoModel";
+import { projectsPanel } from "./projectsPanel_view";
+import { getProjectByID, getAllProjects, updateProjectName } from "./todoModel";
 import { getCurrentUser } from "./userModel";
 
 const projectsPanel_controller = (() => {
+  pubsub.subscribe("request_projectsPanel_update", () => {
+    projectsPanel.render(getAllProjects());
+  });
+
   pubsub.subscribe("select_active_proj", (id) => {
     getCurrentUser().setActiveProject(id);
     pubsub.publish("request_todoListPanel_update");
@@ -17,8 +22,11 @@ const projectsPanel_controller = (() => {
 
   pubsub.subscribe("proj_modify", (newFolderName) => {
     console.log("project's new name is now: " + newFolderName);
-    //tell todoModel to update data accordingly.
+    const projectID = getCurrentUser().getActiveProjectID();
+    updateProjectName(projectID, newFolderName);
     //announce to all views that data was modified.
+    pubsub.publish("request_projectsPanel_update");
+    pubsub.publish("request_todoListPanel_update");
   });
 
   pubsub.subscribe("request_proj_add", () => {

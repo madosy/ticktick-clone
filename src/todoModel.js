@@ -60,7 +60,7 @@ export function getTodoByID(folderID, todoID) {
   return myFolder.children[myTodoInd];
 }
 
-export function getProjects() {
+export function getAllProjects() {
   const myProjects = [];
   root.returnParentAndChildren((project) =>
     myProjects.push({
@@ -100,7 +100,7 @@ export function getInboxFolder() {
   return inbox;
 }
 
-export function addTodo({ title, parentID }) {
+export function addTodo(title, parentID) {
   const myTodo = new Todo(title);
   const parentFolder = getProjectByID(parentID);
   parentFolder.addChild(myTodo);
@@ -114,4 +114,12 @@ export function addFolder(title) {
 export function updateTodo(parentID, todoID, propertyName, newContent) {
   const todoForModify = getTodoByID(parentID, todoID);
   todoForModify[propertyName] = newContent;
+}
+export function updateProject(id, propertyName, newContent) {
+  const projectForModify = getProjectByID(id);
+  projectForModify[propertyName] = newContent;
+}
+
+export function updateProjectName(id, newName) {
+  updateProject(id, "title", newName);
 }

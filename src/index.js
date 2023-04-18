@@ -5,7 +5,7 @@ import "./styles/detail-panel.scss";
 
 import {
   getProjectByID,
-  getProjects,
+  getAllProjects,
   getTodos,
   getInboxFolder,
   getRootFolder,
@@ -14,7 +14,7 @@ import {
   getTodoByID,
   updateTodo,
 } from "./todoModel";
-import { listPanel } from "./projectsPanel_view";
+import { projectsPanel } from "./projectsPanel_view";
 import { detailsPanel } from "./todoDetailsPanel_view";
 import { todoPanel } from "./todoListPanel_view";
 import { projectsPanel_controller } from "./projectsPanel_controller";
@@ -27,7 +27,7 @@ const todoApp = (() => {
   console.log(getRootFolder());
 
   const initialize = () => {
-    listPanel.render(getProjects());
+    projectsPanel.render(getAllProjects());
 
     let currentUser = getCurrentUser();
     currentUser.setActiveProject(getInboxFolder().id); // initialize inbox folder as active folder
@@ -50,18 +50,18 @@ const todoApp = (() => {
     );
   };
 
-  const detectTodoUserInput = () => {
-    const userInput = document.body.querySelector("input#todo");
-    userInput.addEventListener("keydown", (e) => {
-      if (e.keyCode == 13 && userInput.value.replace(/\s/g, "").length > 0) {
-        addTodo({ title: userInput.value, parentID: activeFolder.id });
-        userInput.value = "";
-        pubsub.publish("render todo panel", [getTodos(activeFolder)]);
-        listPanel.render(getProjects());
-        newFolder_clickHandler();
-      }
-    });
-  };
+  // const detectTodoUserInput = () => {
+  //   const userInput = document.body.querySelector("input#todo");
+  //   userInput.addEventListener("keydown", (e) => {
+  //     if (e.keyCode == 13 && userInput.value.replace(/\s/g, "").length > 0) {
+  //       addTodo({ title: userInput.value, parentID: activeFolder.id });
+  //       userInput.value = "";
+  //       pubsub.publish("render todo panel", [getTodos(activeFolder)]);
+  //       listPanel.render(getProjects());
+  //       newFolder_clickHandler();
+  //     }
+  //   });
+  // };
 
   const detectTodoChange = () => {
     const detailPanel = document.querySelector(".detail-panel");
@@ -147,8 +147,6 @@ const todoApp = (() => {
     });
   };
 
-  pubsub.subscribe("render list panel", detectTodoUserInput);
-  pubsub.subscribe("render list title", todoPanel.render);
   pubsub.subscribe("render list title", detailsPanel.initDefault);
   pubsub.subscribe("render list title", (title) => {
     const todoInput = document.querySelector("#todo");

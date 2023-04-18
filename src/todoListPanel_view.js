@@ -3,13 +3,33 @@ import { format } from "date-fns";
 
 export const todoPanel = (() => {
   const render = (title, todoArray) => {
-    renderTitle(title);
+    renderProjTitle(title);
+    renderTodoInputField(title);
     renderTodos(todoArray);
   };
 
-  const renderTitle = (title) => {
+  const renderProjTitle = (title) => {
     const selectedList = document.body.querySelector(".selected-list");
     selectedList.textContent = title;
+  };
+
+  const renderTodoInputField = (title) => {
+    const container = document.querySelector(".todo-container");
+    const todoInput = document.createElement("input");
+    todoInput.setAttribute("type", "text");
+    todoInput.setAttribute("id", "todo");
+    todoInput.setAttribute(
+      "placeholder",
+      `+ Add task to "${title}". Press enter to save.`
+    );
+    todoInput.addEventListener("keydown", (e) => {
+      const filteredInput = todoInput.value.replace(/\s/g, "");
+      if (e.code == "Enter" && filteredInput.length > 0) {
+        pubsub.publish("add_todo", [todoInput.value]);
+        todoInput.value = "";
+      }
+    });
+    container.replaceChildren(todoInput);
   };
 
   const renderTodos = (todos) => {

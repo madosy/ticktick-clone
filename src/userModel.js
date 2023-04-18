@@ -16,7 +16,11 @@ const userFactory = () => {
     return activeTodo;
   }
 
-  return { getActiveProject, getActiveTodo, setActiveProject };
+  return {
+    getActiveProjectID: getActiveProject,
+    getActiveTodo,
+    setActiveProject,
+  };
 };
 
 const defaultUser = userFactory();

@@ -1,20 +1,25 @@
 var pubsub = require("pubsub.js");
 
-const listPanel = (() => {
-  const listPanel = document.body.querySelector(".list-panel");
+const projectsPanel = (() => {
+  const container = document.body.querySelector(".list-panel");
 
   function render(projectsArray) {
-    listPanel.appendChild(generateHeader());
+    container.innerHTML = "";
+    container.appendChild(generateHeader());
 
     projectsArray.forEach((project) => {
       const renderedItem = renderItem(project);
       renderedItem.addEventListener("click", (e) => {
-        pubsub.publish("select_active_proj", [e.target.dataset.id]);
+        pubsub.publish("select_active_proj", [
+          e.target.closest(".project").dataset.id,
+        ]);
       });
       renderedItem.addEventListener("dblclick", (e) => {
-        pubsub.publish("request_proj_modify", [e.target.dataset.id]);
+        pubsub.publish("request_proj_modify", [
+          e.target.closest(".project").dataset.id,
+        ]);
       });
-      listPanel.appendChild(renderedItem);
+      container.appendChild(renderedItem);
     });
     pubsub.publish("render list panel");
   }
@@ -32,7 +37,7 @@ const listPanel = (() => {
 
   const renderItem = ({ id, title, count }) => {
     const item = document.createElement("div");
-    item.classList.add("list");
+    item.classList.add("project");
     item.dataset.id = id;
     item.innerHTML = `
   <span class="material-symbols-outlined">folder</span>
@@ -44,4 +49,4 @@ const listPanel = (() => {
   return { render };
 })();
 
-export { listPanel };
+export { projectsPanel };
