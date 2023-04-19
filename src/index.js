@@ -4,13 +4,10 @@ import "./styles/list-panel.scss";
 import "./styles/detail-panel.scss";
 
 import {
-  getProjectByID,
   getAllProjects,
   getTodos,
   getInboxFolder,
   getRootFolder,
-  addTodo,
-  addFolder,
   getTodoByID,
   updateTodo,
 } from "./todoModel";
@@ -37,6 +34,12 @@ const todoApp = (() => {
     detailsPanel.initDefault();
   };
 
+  pubsub.subscribe("data_modified", () => {
+    console.log("Processing view updates...");
+    pubsub.publish("request_projectsPanel_update");
+    pubsub.publish("request_todoListPanel_update");
+  });
+
   const detectActiveTodo = () => {
     const todos = document.querySelectorAll(".todo");
     todos.forEach((todo) =>
@@ -49,19 +52,6 @@ const todoApp = (() => {
       })
     );
   };
-
-  // const detectTodoUserInput = () => {
-  //   const userInput = document.body.querySelector("input#todo");
-  //   userInput.addEventListener("keydown", (e) => {
-  //     if (e.keyCode == 13 && userInput.value.replace(/\s/g, "").length > 0) {
-  //       addTodo({ title: userInput.value, parentID: activeFolder.id });
-  //       userInput.value = "";
-  //       pubsub.publish("render todo panel", [getTodos(activeFolder)]);
-  //       listPanel.render(getProjects());
-  //       newFolder_clickHandler();
-  //     }
-  //   });
-  // };
 
   const detectTodoChange = () => {
     const detailPanel = document.querySelector(".detail-panel");
@@ -148,16 +138,8 @@ const todoApp = (() => {
   };
 
   pubsub.subscribe("render list title", detailsPanel.initDefault);
-  pubsub.subscribe("render list title", (title) => {
-    const todoInput = document.querySelector("#todo");
-    todoInput.setAttribute(
-      "placeholder",
-      `+ Add task to "${title}". Press enter to save.`
-    );
-  });
   pubsub.subscribe("render todo panel", todoPanel.render);
 
-  pubsub.subscribe("add todo", todoPanel.render);
   pubsub.subscribe(
     "todo modified",
     (parentID, todoID, propertyName, newContent) =>

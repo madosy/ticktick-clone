@@ -2,7 +2,12 @@ var pubsub = require("pubsub.js");
 
 import { projectPrompt } from "./projectPrompt_view";
 import { projectsPanel } from "./projectsPanel_view";
-import { getProjectByID, getAllProjects, updateProjectName } from "./todoModel";
+import {
+  addFolder,
+  getProjectByID,
+  getAllProjects,
+  updateProjectName,
+} from "./todoModel";
 import { getCurrentUser } from "./userModel";
 
 const projectsPanel_controller = (() => {
@@ -35,8 +40,9 @@ const projectsPanel_controller = (() => {
 
   pubsub.subscribe("proj_add", (newFolderName) => {
     console.log("new folder to add: " + newFolderName);
-    //tell todoModel to add project data.
+    addFolder(newFolderName);
     //announce to all views that data was modified.
+    pubsub.publish("data_modified");
   });
 })();
 

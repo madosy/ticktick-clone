@@ -11,10 +11,16 @@ const projectPrompt = (() => {
     const prompt = generatePrompt("proj_modify");
     prompt.querySelector(".header").innerText = `Modify Project`;
     prompt.querySelector("input").value = projectName;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.classList.add("delete-button");
+    deleteButton.setAttribute("type", "submit");
+
     document.body.appendChild(prompt);
   }
 
-  const generatePrompt = (pubOpt = "proj_add") => {
+  const generatePrompt = (publishOption = "proj_add") => {
     const container = document.createElement("div");
 
     const header = document.createElement("h1");
@@ -43,7 +49,7 @@ const projectPrompt = (() => {
     saveButton.disabled = true;
 
     const submit = () => {
-      pubsub.publish(pubOpt, [projectNameField.value]);
+      pubsub.publish(publishOption, [projectNameField.value]);
       overlay.remove();
     };
     saveButton.addEventListener("click", submit);

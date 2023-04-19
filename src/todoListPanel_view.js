@@ -42,16 +42,29 @@ export const todoPanel = (() => {
   };
 
   const renderItem = ({ id, title, dueDate, priority, checked, details }) => {
+    const todoItem = document.createElement("div");
+    todoItem.classList.add("todo");
+    todoItem.dataset.id = id;
+
     const statusBox = document.createElement("input");
     statusBox.setAttribute("type", "checkbox");
     statusBox.checked = checked;
+    statusBox.addEventListener("input", () => {
+      pubsub.publish("modify_todo", [id, "checked", statusBox.checked]);
+    });
+
     const _title = document.createElement("p");
     _title.textContent = title;
     _title.classList.add("title");
     _title.setAttribute("contenteditable", true);
+    _title.addEventListener("input", () => {
+      pubsub.publish("modify_todo", [id, "title", _title.textContent]);
+    });
+
     const _dueDate = document.createElement("span");
     _dueDate.classList.add("dueDate");
     _dueDate.textContent = formatDate(dueDate);
+
     const _details = document.createElement("p");
     _details.classList.add("details");
     if (details != undefined) {
@@ -59,10 +72,6 @@ export const todoPanel = (() => {
       dummyDiv.innerHTML = details; // this was the easiest way to just grab the text...
       _details.textContent = dummyDiv.textContent;
     }
-
-    const todoItem = document.createElement("div");
-    todoItem.classList.add("todo");
-    todoItem.dataset.id = id;
 
     todoItem.appendChild(statusBox);
     todoItem.appendChild(_title);
