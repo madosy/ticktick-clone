@@ -28,6 +28,11 @@ const todoListPanel_controller = (() => {
     updateTodo(parentID, id, prop, data);
     //tell detail panel to update its view
   });
+
+  pubsub.subscribe("select_active_todo", (id) => {
+    getCurrentUser().setActiveTodo(id);
+    pubsub.publish("request_todoDetailsPanel_update");
+  });
 })();
 
 export { todoListPanel_controller };

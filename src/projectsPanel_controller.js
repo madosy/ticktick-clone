@@ -17,7 +17,9 @@ const projectsPanel_controller = (() => {
 
   pubsub.subscribe("select_active_proj", (id) => {
     getCurrentUser().setActiveProject(id);
+    getCurrentUser().setActiveTodo(undefined);
     pubsub.publish("request_todoListPanel_update");
+    pubsub.publish("request_todoDetailsPanel_update");
   });
 
   pubsub.subscribe("request_proj_modify", (id) => {

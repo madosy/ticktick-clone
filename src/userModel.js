@@ -8,18 +8,24 @@ const userFactory = () => {
     console.log("my active project is now: " + activeProject);
   }
 
-  function getActiveProject() {
+  function setActiveTodo(id) {
+    activeTodo = id;
+    console.log("my active todo is now: " + activeTodo);
+  }
+
+  function getActiveProjectID() {
     return activeProject;
   }
 
-  function getActiveTodo() {
+  function getActiveTodoID() {
     return activeTodo;
   }
 
   return {
-    getActiveProjectID: getActiveProject,
-    getActiveTodo,
+    getActiveProjectID,
+    getActiveTodoID,
     setActiveProject,
+    setActiveTodo,
   };
 };
 
@@ -29,3 +35,5 @@ let currentUser = defaultUser;
 export function getCurrentUser() {
   return currentUser;
 }
+
+console.log(currentUser);

@@ -45,6 +45,9 @@ export const todoPanel = (() => {
     const todoItem = document.createElement("div");
     todoItem.classList.add("todo");
     todoItem.dataset.id = id;
+    todoItem.addEventListener("click", () => {
+      pubsub.publish("select_active_todo", [id]);
+    });
 
     const statusBox = document.createElement("input");
     statusBox.setAttribute("type", "checkbox");

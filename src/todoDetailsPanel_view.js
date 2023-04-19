@@ -1,13 +1,28 @@
 import default_image from "./assets/detail-panel-default.png";
 import { format } from "date-fns";
+import { getCurrentUser } from "./userModel";
+import { getTodoByID } from "./todoModel";
+const pubsub = require("pubsub.js");
 
 const detailsPanel = (() => {
   const container = document.body.querySelector(".detail-panel");
 
-  const initDefault = () => {
-    container.innerHTML = "";
-    container.replaceChild(noTodoContent());
-  };
+  function render() {
+    const activeProject = getCurrentUser().getActiveProjectID();
+    const activeTodo = getCurrentUser().getActiveTodoID();
+    const myTodo = getTodoByID(activeProject, activeTodo);
+
+    if (activeTodo == undefined) {
+      container.replaceChildren(noTodoContent());
+    } else {
+      container.replaceChildren(generateContent());
+    }
+  }
+
+  // const initDefault = () => {
+  //   container.innerHTML = "";
+  //   container.appendChild(noTodoContent());
+  // };
 
   const noTodoContent = () => {
     const message = document.createElement("p");
@@ -24,23 +39,62 @@ const detailsPanel = (() => {
     return container;
   };
 
-  const initTodo = () => {
+  const generateContent = () => {
     const template = `
     <div class="todo-date">
         <input type="checkbox" name="detail-panel-checkbox" id="detail-panel-checkbox">
         <span class="date"></span>
         <span class="priority"></span>
     </div>
-    <div contenteditable class="todo-title">Title is here</div>
+    <div contenteditable class="todo-title">Title is here!</div>
     <div contenteditable class="todo-desc" placeholder="Write details about todo here"></div>
     <div class="todo-tools">A</div>`;
 
-    container.innerHTML = template;
+    const calendarInput = (dueDate) => {
+      const calendarInput = document.createElement("input");
+      calendarInput.setAttribute("type", "date");
+      calendarInput.setAttribute("onfocus", "this.showPicker()");
+      if (dueDate != undefined)
+        calendarInput.setAttribute("value", format(dueDate, "yyyy-MM-dd"));
+      calendarInput.classList.add("calendar");
+      calendarInput.addEventListener("input", (e) => {});
+      return { calendarInput };
+    };
 
-    const buttonCalendar = document.createElement("input");
-    buttonCalendar.setAttribute("type", "date");
-    buttonCalendar.setAttribute("onfocus", "this.showPicker()");
-    buttonCalendar.classList.add("calendar");
+    const checkbox = (checked) => {
+      const checkbox = document.createElement("input");
+      checkbox.setAttribute("type", "checkbox");
+      checkbox.id = "detail-panel-checkbox";
+      checkbox.addEventListener("input", () => {
+        const todoID = getCurrentUser().getActiveTodoID();
+        //detail was modified announce.
+      });
+      return { checkbox };
+    };
+
+    const priority = () => {
+      const priority = document.createElement("span");
+      priority.classList.add("priority");
+      return { priority };
+    };
+
+    const todoTitle = () => {
+      const todoTitle = document.createElement("div");
+      todoTitle.setAttribute("contenteditable");
+      todoTitle.classList.add("todo-title");
+      todoTitle.innerText = input;
+      return { todoTitle };
+    };
+
+    const todoDescription = () => {};
+
+    const todoToolbar = () => {};
+
+    const content = document.createElement("div");
+  };
+
+  const initTodo = () => {
+    container.innerHTML = template;
 
     const date = container.querySelector(".date");
     date.appendChild(buttonCalendar);
@@ -65,7 +119,7 @@ const detailsPanel = (() => {
       container.querySelector(".todo-desc").innerHTML = todo.details;
   };
 
-  return { initDefault, updateUI };
+  return { updateUI, render };
 })();
 
 export { detailsPanel };
