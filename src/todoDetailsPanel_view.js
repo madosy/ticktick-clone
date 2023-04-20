@@ -16,13 +16,9 @@ const detailsPanel = (() => {
       container.replaceChildren(noTodoContent());
     } else {
       container.replaceChildren(generateContent());
+      console.log("rendering selected todo");
     }
   }
-
-  // const initDefault = () => {
-  //   container.innerHTML = "";
-  //   container.appendChild(noTodoContent());
-  // };
 
   const noTodoContent = () => {
     const message = document.createElement("p");
@@ -69,7 +65,7 @@ const detailsPanel = (() => {
         const todoID = getCurrentUser().getActiveTodoID();
         //detail was modified announce.
       });
-      return { checkbox };
+      return checkbox;
     };
 
     const priority = () => {
@@ -83,7 +79,7 @@ const detailsPanel = (() => {
       todoTitle.setAttribute("contenteditable");
       todoTitle.classList.add("todo-title");
       todoTitle.innerText = input;
-      return { todoTitle };
+      return todoTitle;
     };
 
     const todoDescription = () => {};

@@ -5,12 +5,10 @@ const userFactory = () => {
 
   function setActiveProject(id) {
     activeProject = id;
-    console.log("my active project is now: " + activeProject);
   }
 
   function setActiveTodo(id) {
     activeTodo = id;
-    console.log("my active todo is now: " + activeTodo);
   }
 
   function getActiveProjectID() {
