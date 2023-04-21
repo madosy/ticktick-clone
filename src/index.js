@@ -1,6 +1,6 @@
 import "./styles/index.scss";
-import "./styles/todo-panel.scss";
-import "./styles/list-panel.scss";
+import "./styles/todoListPanel.scss";
+import "./styles/projectsPanel.scss";
 import "./styles/detail-panel.scss";
 
 import {

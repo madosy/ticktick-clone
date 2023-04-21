@@ -7,6 +7,7 @@ import {
   getProjectByID,
   getAllProjects,
   updateProjectName,
+  deleteProject,
 } from "./todoModel";
 import { getCurrentUser } from "./userModel";
 
@@ -45,6 +46,12 @@ const projectsPanel_controller = (() => {
     addFolder(newFolderName);
     //announce to all views that data was modified.
     pubsub.publish("data_modified");
+  });
+
+  pubsub.subscribe("request_proj_delete", (id) => {
+    console.log("folder to delete: " + id);
+    deleteProject(id);
+    pubsub.publish("request_projectsPanel_update");
   });
 })();
 

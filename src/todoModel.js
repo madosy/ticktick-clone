@@ -123,3 +123,8 @@ export function updateProject(id, propertyName, newContent) {
 export function updateProjectName(id, newName) {
   updateProject(id, "title", newName);
 }
+
+export function deleteProject(id) {
+  const deletionID = getAllProjects().findIndex((item) => item.id == id);
+  root.children.splice(deletionID, 1);
+}

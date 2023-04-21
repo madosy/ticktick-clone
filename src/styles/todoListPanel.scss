@@ -11,6 +11,9 @@
   font-size: 1.4rem;
   font-weight: 500;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #todo {
