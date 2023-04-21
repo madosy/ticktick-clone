@@ -50,7 +50,10 @@ const detailsPanel = (() => {
         date_input.setAttribute("value", format(date, "yyyy-MM-dd"));
       }
       date_input.addEventListener("input", () => console.log("date changed"));
-      return date_input;
+      const wrapper = document.createElement("span");
+      wrapper.classList.add("date");
+      wrapper.appendChild(date_input);
+      return wrapper;
     }
 
     function checkbox(status) {

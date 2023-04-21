@@ -47,7 +47,7 @@
     background-color: blue;
   }
 
-  .date::before {
+  span.date::before {
     display: inline-block;
     content: "";
     width: 1px;
@@ -59,14 +59,14 @@
     position: relative;
     top: 3px;
   }
-  .date {
+  span.date {
     display: flex;
     gap: 10px;
     justify-self: left;
     // position: relative;
     // top: 2px;
 
-    input.calendar {
+    input {
       background-color: rgba(0, 0, 0, 0);
       width: 150px;
       position: relative;
