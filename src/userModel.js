@@ -6,15 +6,12 @@ const userFactory = () => {
   function setActiveProject(id) {
     activeProject = id;
   }
-
   function setActiveTodo(id) {
     activeTodo = id;
   }
-
   function getActiveProjectID() {
     return activeProject;
   }
-
   function getActiveTodoID() {
     return activeTodo;
   }

@@ -6,7 +6,21 @@ import { getCurrentUser } from "./userModel";
 
 const todoDetailsPanel_controller = (() => {
   pubsub.subscribe("request_todoDetailsPanel_update", () => {
-    detailsPanel.render();
+    const activeProject = getCurrentUser().getActiveProjectID();
+    const activeTodo = getCurrentUser().getActiveTodoID();
+    const myTodo = getTodoByID(activeProject, activeTodo);
+
+    if (activeTodo == undefined) {
+      detailsPanel.renderDefaultMessage();
+    } else {
+      detailsPanel.renderTodo(
+        myTodo.title,
+        myTodo.details,
+        myTodo.dueDate,
+        myTodo.checked,
+        myTodo.priority
+      );
+    }
   });
 })();
 
