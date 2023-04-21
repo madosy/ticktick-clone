@@ -23,10 +23,19 @@ const todoListPanel_controller = (() => {
     pubsub.publish("data_modified");
   });
 
-  pubsub.subscribe("modify_todo", (id, prop, data) => {
+  pubsub.subscribe("todoListPanel_modify_todo", (...data) => {
     const parentID = getCurrentUser().getActiveProjectID();
-    updateTodo(parentID, id, prop, data);
-    //tell detail panel to update its view
+    const todoID = getCurrentUser().getActiveTodoID();
+    const content = data.find((item) => item.hasOwnProperty("content")).content;
+    const property = data.find((item) => item.hasOwnProperty("prop")).prop;
+
+    updateTodo(parentID, todoID, property, content);
+    pubsub.publish("request_todoDetailsPanel_update");
+  });
+
+  pubsub.subscribe("modify_todo", (...input) => {
+    console.log(...input.filter((item) => item.hasOwnProperty("content")));
+    console.log(...input.filter((item) => typeof item == "string"));
   });
 
   pubsub.subscribe("select_active_todo", (id) => {

@@ -49,7 +49,11 @@ const detailsPanel = (() => {
       if (isDate(date)) {
         date_input.setAttribute("value", format(date, "yyyy-MM-dd"));
       }
-      date_input.addEventListener("input", () => console.log("date changed"));
+      date_input.addEventListener("input", () => {
+        pubsub.publish("todoDetailsPanel_modify_todo", [
+          { content: new Date(date_input.value + "T00:00"), prop: "dueDate" },
+        ]);
+      });
       const wrapper = document.createElement("span");
       wrapper.classList.add("date");
       wrapper.appendChild(date_input);
@@ -62,7 +66,9 @@ const detailsPanel = (() => {
       checkbox.id = "detail-panel-checkbox";
       checkbox.checked = status;
       checkbox.addEventListener("input", () =>
-        console.log("checkbox clicked!")
+        pubsub.publish("todoDetailsPanel_modify_todo", [
+          { content: checkbox.checked, prop: "checked" },
+        ])
       );
       return checkbox;
     }
@@ -81,7 +87,9 @@ const detailsPanel = (() => {
       todoTitle.classList.add("todo-title");
       todoTitle.innerText = text;
       todoTitle.addEventListener("input", () =>
-        console.log(todoTitle.innerText)
+        pubsub.publish("todoDetailsPanel_modify_todo", [
+          { content: todoTitle.innerText, prop: "title" },
+        ])
       );
       return todoTitle;
     }
@@ -92,7 +100,9 @@ const detailsPanel = (() => {
       div.classList.add("todo-desc");
       if (html != undefined) div.innerHTML = html;
       div.addEventListener("input", () =>
-        console.log("desc was modified but not saved.")
+        pubsub.publish("todoDetailsPanel_modify_todo", [
+          { content: div.innerHTML, prop: "details" },
+        ])
       );
       return div;
     }

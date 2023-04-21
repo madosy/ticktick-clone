@@ -1,7 +1,7 @@
 const pubsub = require("pubsub.js");
 
 import { detailsPanel } from "./todoDetailsPanel_view";
-import { getTodoByID } from "./todoModel";
+import { getTodoByID, updateTodo } from "./todoModel";
 import { getCurrentUser } from "./userModel";
 
 const todoDetailsPanel_controller = (() => {
@@ -21,6 +21,16 @@ const todoDetailsPanel_controller = (() => {
         myTodo.priority
       );
     }
+  });
+
+  pubsub.subscribe("todoDetailsPanel_modify_todo", (...data) => {
+    const parentID = getCurrentUser().getActiveProjectID();
+    const todoID = getCurrentUser().getActiveTodoID();
+    const content = data.find((item) => item.hasOwnProperty("content")).content;
+    const property = data.find((item) => item.hasOwnProperty("prop")).prop;
+
+    updateTodo(parentID, todoID, property, content);
+    pubsub.publish("request_todoListPanel_update");
   });
 })();
 

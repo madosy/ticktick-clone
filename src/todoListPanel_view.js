@@ -53,7 +53,10 @@ export const todoPanel = (() => {
     statusBox.setAttribute("type", "checkbox");
     statusBox.checked = checked;
     statusBox.addEventListener("input", () => {
-      pubsub.publish("modify_todo", [id, "checked", statusBox.checked]);
+      console.log("check");
+      pubsub.publish("todoListPanel_modify_todo", [
+        { content: statusBox.checked, prop: "checked" },
+      ]);
     });
 
     const _title = document.createElement("p");
@@ -61,7 +64,9 @@ export const todoPanel = (() => {
     _title.classList.add("title");
     _title.setAttribute("contenteditable", true);
     _title.addEventListener("input", () => {
-      pubsub.publish("modify_todo", [id, "title", _title.textContent]);
+      pubsub.publish("todoListPanel_modify_todo", [
+        { content: _title.textContent, prop: "title" },
+      ]);
     });
 
     const _dueDate = document.createElement("span");
