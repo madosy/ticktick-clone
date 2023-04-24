@@ -7,12 +7,6 @@ var pubsub = require("pubsub.js");
 const detailsPanel = (() => {
   const container = document.body.querySelector(".detail-panel");
 
-  function render() {
-    const activeProject = getCurrentUser().getActiveProjectID();
-    const activeTodo = getCurrentUser().getActiveTodoID();
-    const myTodo = getTodoByID(activeProject, activeTodo);
-  }
-
   const renderDefaultMessage = () => {
     const message = document.createElement("p");
     message.textContent = "Click task title to view the detail";

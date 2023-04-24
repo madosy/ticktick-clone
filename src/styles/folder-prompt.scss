@@ -49,6 +49,13 @@
     padding: 5px;
   }
 
+  .description {
+    align-self: center;
+    padding: 5px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
   & > div {
     display: flex;
     gap: 10px;

@@ -1,3 +1,5 @@
+import { getInboxFolder } from "./todoModel";
+
 var pubsub = require("pubsub.js");
 
 const projectsPanel = (() => {
@@ -33,8 +35,7 @@ const projectsPanel = (() => {
     projectHeader.innerHTML = `<div class="header">Projects <span class="add">+</span></div>`;
     const addButton = projectHeader.querySelector("span.add");
     addButton.addEventListener("click", () => {
-      pubsub.publish("request_proj_add");
-      console.log("request_proj_add");
+      pubsub.publish("display_proj_add_prompt");
     });
     return projectHeader;
   };
@@ -51,11 +52,15 @@ const projectsPanel = (() => {
   };
 
   const displayContextMenu = (e) => {
+    const id = e.target.closest(".project").dataset.id;
+    if (id == getInboxFolder().id) {
+      return;
+    }
+
     const existingMenu = document.body.querySelector(".contextmenu");
     if (existingMenu) existingMenu.remove();
     const x = e.x + "px";
     const y = e.y + "px";
-    const id = e.target.closest(".project").dataset.id;
 
     const contextmenu = document.createElement("div");
     contextmenu.classList.add("contextmenu");
@@ -70,7 +75,7 @@ const projectsPanel = (() => {
     const delete_button = document.createElement("button");
     delete_button.textContent = "Delete";
     delete_button.addEventListener("click", () => {
-      pubsub.publish("request_proj_delete", [id]);
+      pubsub.publish("display_proj_delete_prompt", [id]);
     });
 
     contextmenu.appendChild(modify_button);
