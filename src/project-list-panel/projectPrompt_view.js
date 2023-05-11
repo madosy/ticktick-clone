@@ -1,5 +1,5 @@
-import "./styles/folder-prompt.scss";
-import { getInboxFolder } from "./todoModel";
+import "../styles/folder-prompt.scss";
+import { getInboxFolder } from "../data/todoModel";
 var pubsub = require("pubsub.js");
 
 const projectPrompt = (() => {

@@ -10,8 +10,8 @@ import {
   updateProjectName,
   deleteProject,
   getInboxFolder,
-} from "./todoModel";
-import { getCurrentUser } from "./userModel";
+} from "../data/todoModel";
+import { getCurrentUser } from "../data/userModel";
 
 const projectsPanel_controller = (() => {
   pubsub.subscribe("request_projectsPanel_update", () => {

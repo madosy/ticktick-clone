@@ -10,12 +10,12 @@ import {
   getRootFolder,
   getTodoByID,
   updateTodo,
-} from "./todoModel";
-import { projectsPanel } from "./projectsPanel_view";
-import { projectsPanel_controller } from "./projectsPanel_controller";
-import { todoListPanel_controller } from "./todoListPanel_controller";
-import { todoDetailsPanel_controller } from "./todoDetailsPanel_controller";
-import currentUser, { getCurrentUser } from "./userModel";
+} from "./data/todoModel";
+import { projectsPanel } from "./project-list-panel/projectsPanel_view";
+import { projectsPanel_controller } from "./project-list-panel/projectsPanel_controller";
+import { todoListPanel_controller } from "./todo-list-panel/todoListPanel_controller";
+import { todoDetailsPanel_controller } from "./todo-details-panel/todoDetailsPanel_controller";
+import currentUser, { getCurrentUser } from "./data/userModel";
 
 const pubsub = require("pubsub.js");
 

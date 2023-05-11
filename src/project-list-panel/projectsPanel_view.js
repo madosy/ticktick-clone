@@ -1,4 +1,4 @@
-import { getInboxFolder } from "./todoModel";
+import { getInboxFolder } from "../data/todoModel";
 
 var pubsub = require("pubsub.js");
 

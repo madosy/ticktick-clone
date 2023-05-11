@@ -1,8 +1,8 @@
 const pubsub = require("pubsub.js");
 
 import { detailsPanel } from "./todoDetailsPanel_view";
-import { getTodoByID, updateTodo } from "./todoModel";
-import { getCurrentUser } from "./userModel";
+import { getTodoByID, updateTodo } from "../data/todoModel";
+import { getCurrentUser } from "../data/userModel";
 
 const todoDetailsPanel_controller = (() => {
   pubsub.subscribe("request_todoDetailsPanel_update", () => {

@@ -1,7 +1,7 @@
-import default_image from "./assets/detail-panel-default.png";
+import default_image from "../assets/detail-panel-default.png";
 import { format, isDate } from "date-fns";
-import { getCurrentUser } from "./userModel";
-import { getTodoByID } from "./todoModel";
+import { getCurrentUser } from "../data/userModel";
+import { getTodoByID } from "../data/todoModel";
 var pubsub = require("pubsub.js");
 
 const detailsPanel = (() => {
