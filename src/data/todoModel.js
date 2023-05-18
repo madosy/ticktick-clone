@@ -92,8 +92,15 @@ root.addChild(exampleFolder);
 exampleFolder.addChild(exampleTodo);
 inbox.addChild(new Todo("Love myself!"));
 
+localStorage.setItem("root", JSON.stringify(root));
+
+const getRootFromStorage = () => JSON.parse(localStorage.getItem("root"));
+const getInboxFromStorage = () => {
+  root = JSON.parse(localStorage.getItem("root"));
+};
+
 export function getRootFolder() {
-  return root;
+  return getRootFromStorage();
 }
 
 export function getInboxFolder() {

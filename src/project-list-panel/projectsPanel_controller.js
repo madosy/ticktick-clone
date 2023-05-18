@@ -1,7 +1,7 @@
 var pubsub = require("pubsub.js");
 
 import { projectPrompt } from "./projectPrompt_view";
-import { projectsPanel } from "./projectsPanel_view";
+import { projectsPanel } from "./project_displayController";
 import { DeletionPrompt } from "./Prompt";
 import {
   addFolder,
@@ -12,6 +12,7 @@ import {
   getInboxFolder,
 } from "../data/todoModel";
 import { getCurrentUser } from "../data/userModel";
+import { userSession } from "../data/userSession";
 
 const projectsPanel_controller = (() => {
   pubsub.subscribe("request_projectsPanel_update", () => {
@@ -19,6 +20,8 @@ const projectsPanel_controller = (() => {
   });
 
   pubsub.subscribe("select_active_proj", (id) => {
+    userSession.setActiveProjectId(id);
+    userSession.setActiveTodoId(undefined);
     getCurrentUser().setActiveProject(id);
     getCurrentUser().setActiveTodo(undefined);
     pubsub.publish("request_todoListPanel_update");

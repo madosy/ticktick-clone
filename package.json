@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "date-fns": "^2.29.3",
-    "pubsub.js": "^1.5.2"
+    "PubSub": "^4.0.0",
+    "pubsub-js": "^1.9.4"
   }
 }

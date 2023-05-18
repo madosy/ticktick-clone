@@ -1,37 +1,15 @@
 var pubsub = require("pubsub.js");
 import { format } from "date-fns";
+import { renderTitleAndInput } from "./displayController-components/renderProjectTitle";
+import { getProjectByID } from "../data/todoModel";
+import { userSession } from "../data/userSession";
 
-export const todoPanel = (() => {
-  const render = (title, todoArray) => {
-    renderProjTitle(title);
-    renderTodoInputField(title);
-    renderTodos(todoArray);
-  };
-
-  const renderProjTitle = (title) => {
-    const selectedList = document.body.querySelector(".selected-list");
-    selectedList.textContent = title;
-  };
-
-  const renderTodoInputField = (title) => {
-    const container = document.querySelector(".todo-container");
-    const todoInput = document.createElement("input");
-    todoInput.setAttribute("type", "text");
-    todoInput.setAttribute("id", "todo");
-    todoInput.setAttribute(
-      "placeholder",
-      `+ Add task to "${title}". Press enter to save.`
-    );
-    todoInput.addEventListener("keydown", (e) => {
-      const filteredInput = todoInput.value.replace(/\s/g, "");
-      if (e.code == "Enter" && filteredInput.length > 0) {
-        pubsub.publish("add_todo", [todoInput.value]);
-        todoInput.value = "";
-      }
-    });
-    container.replaceChildren(todoInput);
-  };
-
+const todoListPanel_displayController = (() => {
+  function render() {
+    renderProjectTitle();
+    renderTodoInput();
+    renderTodos();
+  }
   const renderTodos = (todos) => {
     const todoList = document.body.querySelector(".todo-list");
     todoList.innerHTML = "";
@@ -102,3 +80,5 @@ export const todoPanel = (() => {
 
   return { render };
 })();
+
+export default { todoListPanel_displayController };

@@ -5,7 +5,7 @@
 // </div>
 
 // Color Configuration
-@import "./color-theme.scss";
+@import "../styles/color-theme.scss";
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
@@ -14,10 +14,14 @@
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
-.list-panel {
+.project-panel {
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  .smart-folder {
+    margin-bottom: 20px;
+  }
 
   .header {
     user-select: none;

@@ -1,12 +1,14 @@
 var pubsub = require("pubsub.js");
 
-import { todoPanel } from "./todoListPanel_view";
+import todoPanel from "./todoListPanel_displayController";
 import { addTodo, getProjectByID, updateTodo } from "../data/todoModel";
 import { getCurrentUser } from "../data/userModel";
+import { userSession } from "../data/userSession";
 
 const todoListPanel_controller = (() => {
   const getActiveProjectObj = () => {
-    const activeProject = getCurrentUser().getActiveProjectID();
+    // const activeProject = getCurrentUser().getActiveProjectID();
+    const activeProject = userSession.getActiveProjectId();
     const myProject = getProjectByID(activeProject);
     return myProject;
   };

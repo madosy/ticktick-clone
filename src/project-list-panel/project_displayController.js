@@ -1,11 +1,22 @@
 import { getInboxFolder } from "../data/todoModel";
+import "./projectsPanel.scss";
+import { generateSmartFolderList } from "./generateSmartFolderList";
+import { generateProjectsHeader } from "./component-generators/generateProjectsHeader";
 
-var pubsub = require("pubsub.js");
-
-const projectsPanel = (() => {
+const project_displayController = (() => {
   const container = document.body.querySelector(".list-panel");
 
-  function render(projectsArray) {
+  function render() {
+    const projectPanel = document.querySelector("div.project-panel");
+    const smartFolders = generateSmartFolderList();
+    const projectHeader = generateProjectsHeader();
+    projectPanel.appendChild(smartFolders);
+    projectPanel.appendChild(projectHeader); //change to projectsList and move the header to it.
+  }
+
+  render();
+
+  function renderMe(projectsArray) {
     container.innerHTML = "";
     container.appendChild(generateHeader());
 
@@ -29,16 +40,6 @@ const projectsPanel = (() => {
     });
     pubsub.publish("render list panel");
   }
-
-  const generateHeader = () => {
-    const projectHeader = document.createElement("div");
-    projectHeader.innerHTML = `<div class="header">Projects <span class="add">+</span></div>`;
-    const addButton = projectHeader.querySelector("span.add");
-    addButton.addEventListener("click", () => {
-      pubsub.publish("display_proj_add_prompt");
-    });
-    return projectHeader;
-  };
 
   const renderItem = ({ id, title, count }) => {
     const item = document.createElement("div");
@@ -88,4 +89,4 @@ const projectsPanel = (() => {
   return { render };
 })();
 
-export { projectsPanel };
+export default { project_displayController };
