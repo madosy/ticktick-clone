@@ -1,0 +1,6 @@
+function getObjectByID(id) {
+  const rawData = localStorage.getItem(id);
+  return JSON.parse(rawData);
+}
+
+export default getObjectByID;

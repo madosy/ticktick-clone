@@ -6,4 +6,6 @@ const defaultInbox = {
   count: 0,
 };
 
-export { defaultInbox };
+const defaultProjectList = [];
+
+export { defaultInbox, defaultProjectList };

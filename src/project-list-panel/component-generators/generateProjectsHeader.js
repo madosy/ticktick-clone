@@ -1,6 +1,7 @@
 function generateProjectsHeader() {
   const projectHeader = document.createElement("div");
-  projectHeader.innerHTML = `<div class="header">Projects <span class="add">+</span></div>`;
+  projectHeader.classList.add("header");
+  projectHeader.innerHTML = `Projects <span class="add">+</span>`;
   const addButton = projectHeader.querySelector("span.add");
 
   addButton.addEventListener("click", () => {

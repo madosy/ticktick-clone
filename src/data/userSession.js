@@ -9,16 +9,17 @@ const userSession = (() => {
     localStorage.setItem(defaultInbox.id, JSON.stringify(defaultInbox));
   }
   function getActiveProjectId() {
-    localStorage.getItem("activeProjectId");
+    localStorage.getItem("tictoc.activeProject");
   }
   function setActiveProjectId(projectId) {
-    localStorage.setItem("activeProjectId", projectId);
+    localStorage.setItem("tictock.activeProject", projectId);
+    console.log(`Active project is now: ${projectId}`);
   }
   function getActiveTodoId() {
-    localStorage.getItem("activeTodoId");
+    localStorage.getItem("tictoc.activeTodo");
   }
   function setActiveTodoId(todoId) {
-    localStorage.setItem("activeTodoId", todoId);
+    localStorage.setItem("tictoc.activeTodo", todoId);
   }
 
   return {
@@ -29,4 +30,4 @@ const userSession = (() => {
   };
 })();
 
-export { userSession };
+export default userSession;
