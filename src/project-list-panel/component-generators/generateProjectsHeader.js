@@ -1,3 +1,5 @@
+import createProjectModal from "../modal/createProjectModal";
+
 function generateProjectsHeader() {
   const projectHeader = document.createElement("div");
   projectHeader.classList.add("header");
@@ -5,7 +7,7 @@ function generateProjectsHeader() {
   const addButton = projectHeader.querySelector("span.add");
 
   addButton.addEventListener("click", () => {
-    pubsub.publish("display_proj_add_prompt");
+    createProjectModal.show();
   });
 
   return projectHeader;
