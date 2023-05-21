@@ -1,14 +1,14 @@
-var pubsub = require("pubsub.js");
 import { format } from "date-fns";
-import { renderTitleAndInput } from "./displayController-components/renderProjectTitle";
-import { getProjectByID } from "../data/todoModel";
+import activeProjectName from "./displayController-components/projectName";
+import addTodoModule from "./displayController-components/addTodoModule";
+import "./todoListPanel_style.scss";
+
 import { userSession } from "../data/userSession";
 
 const todoListPanel_displayController = (() => {
   function render() {
-    renderProjectTitle();
-    renderTodoInput();
-    renderTodos();
+    activeProjectName.update();
+    addTodoModule.update();
   }
   const renderTodos = (todos) => {
     const todoList = document.body.querySelector(".todo-list");
@@ -81,4 +81,4 @@ const todoListPanel_displayController = (() => {
   return { render };
 })();
 
-export default { todoListPanel_displayController };
+export default todoListPanel_displayController;

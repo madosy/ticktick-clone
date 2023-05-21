@@ -1,7 +1,7 @@
 import getAllProjects from "./project/getListOfAllProjectsFromLocalStorage";
 import addProject from "./project/addProject";
 import removeProject from "./project/removeProject";
-import { getObjectFromKeys } from "./helper/getObjectFromKeys";
+import getByID from "./helper/getByID";
 
 const todoDataModule = (() => {
   return {
@@ -9,12 +9,13 @@ const todoDataModule = (() => {
       getAll: getAllProjects,
       add: addProject,
       remove: removeProject,
+      modify: (projectID, value) => {},
     },
     todo: {
       add: (todoName) => {},
       remove: (todoID) => {},
     },
-    getByID: getObjectFromKeys,
+    getByID,
   };
 })();
 

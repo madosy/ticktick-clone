@@ -4,10 +4,6 @@ import projectList from "../data/project/projectList";
 import todoDataModule from "../data/todoDataModule";
 
 const generateProjectsList = () => {
-  localStorage.clear();
-  todoDataModule.project.add("Black Jack's Daily Todo");
-  todoDataModule.project.add("My hungry food list");
-
   const container = document.createElement("div");
   const projectHeader = generateProjectsHeader();
   container.appendChild(projectHeader);

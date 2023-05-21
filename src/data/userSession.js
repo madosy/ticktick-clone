@@ -1,4 +1,5 @@
 import { defaultInbox } from "./defaultSessionComponents";
+import PubSub from "pubsub-js";
 
 const userSession = (() => {
   const isInitialized = JSON.parse(localStorage.getItem("initialized"));
@@ -8,12 +9,11 @@ const userSession = (() => {
     localStorage.setItem("initialized", true);
     localStorage.setItem(defaultInbox.id, JSON.stringify(defaultInbox));
   }
-  function getActiveProjectId() {
-    localStorage.getItem("tictoc.activeProject");
-  }
+  const getActiveProjectId = () => localStorage.getItem("tictoc.activeProject");
+
   function setActiveProjectId(projectId) {
-    localStorage.setItem("tictock.activeProject", projectId);
-    console.log(`Active project is now: ${projectId}`);
+    localStorage.setItem("tictoc.activeProject", projectId);
+    PubSub.publish("data_changed");
   }
   function getActiveTodoId() {
     localStorage.getItem("tictoc.activeTodo");

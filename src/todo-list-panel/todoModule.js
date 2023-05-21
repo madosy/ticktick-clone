@@ -1,9 +1,11 @@
-const todoModule = (() => {
+import displayController from "./todoListPanel_displayController";
+
+const todoListModule = (() => {
   function update() {
-    console.log("updated todo list");
+    displayController.render();
   }
 
   return { update };
 })();
 
-export default todoModule;
+export default todoListModule;

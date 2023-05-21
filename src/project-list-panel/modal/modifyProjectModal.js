@@ -1,7 +1,8 @@
 import todoDataModule from "../../data/todoDataModule";
 import "./modal-style.scss";
 
-const createProjectModal = (() => {
+//put it on hold until i finish implementing the edit button on todo list page.
+const modifyProjectModal = (() => {
   const modalContainer = document.querySelector("#modal-container");
   const myModal = document.createElement("dialog");
   const title = document.createElement("div");
@@ -52,4 +53,4 @@ const createProjectModal = (() => {
   return { show };
 })();
 
-export default createProjectModal;
+export default modifyProjectModal;
