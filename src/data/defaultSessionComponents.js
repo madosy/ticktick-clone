@@ -1,7 +1,7 @@
 const defaultInbox = {
   name: "Inbox",
   type: "smart list",
-  id: "myfolder.inbox",
+  id: "tictoc.inbox",
   children: [],
   count: 0,
 };

@@ -2,12 +2,14 @@ import { defaultInbox } from "./defaultSessionComponents";
 import PubSub from "pubsub-js";
 
 const userSession = (() => {
-  const isInitialized = JSON.parse(localStorage.getItem("initialized"));
-  initialize();
+  const isInitialized = () => JSON.parse(localStorage.getItem("initialized"));
+  if (!isInitialized()) initialize();
 
   function initialize() {
+    console.log("im initializing my inbox");
     localStorage.setItem("initialized", true);
     localStorage.setItem(defaultInbox.id, JSON.stringify(defaultInbox));
+    setActiveProjectId(defaultInbox.id);
   }
   const getActiveProjectId = () => localStorage.getItem("tictoc.activeProject");
 
