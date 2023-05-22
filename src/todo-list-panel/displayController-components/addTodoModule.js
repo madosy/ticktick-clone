@@ -14,19 +14,14 @@ const addTodoModule = (() => {
 
   form.addEventListener("submit", (event) => {
     todoDataModule.todo.add(input.value);
-    localStorage.setItem("last todo input", input.value); //for debugging delete later
   });
-  console.log(localStorage.getItem("last todo input")); //for debugging delete later
 
   form.appendChild(input);
   container.appendChild(form);
 
   function updateInputProjectName() {
     const projectName = activeProjectName.get();
-    input.setAttribute(
-      "placeholder",
-      `+ Add task to "${projectName}". Press enter to save.`
-    );
+    input.setAttribute("placeholder", `+ Add task to "${projectName}". Press enter to save.`);
   }
 
   return { update: updateInputProjectName };

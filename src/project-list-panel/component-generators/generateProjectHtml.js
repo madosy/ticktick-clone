@@ -13,6 +13,7 @@ const generateProjectHtml = (projectObject) => {
   container.classList.add("project");
   container.addEventListener("click", () => {
     userSession.setActiveProjectId(projectId);
+    userSession.setActiveTodoId("");
   });
 
   icon.classList.add("material-symbols-outlined");

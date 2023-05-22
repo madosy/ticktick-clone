@@ -1,5 +1,11 @@
+import displayController from "./todoDetail_displayController";
+
 const todoDetailModule = (() => {
-  const update = () => {};
+  displayController.render();
+
+  const update = () => {
+    displayController.render();
+  };
 
   return { update };
 })();

@@ -7,6 +7,18 @@
   gap: 5px;
 }
 
+.todo:hover .delete-todo-icon {
+  opacity: 40%;
+}
+
+.delete-todo-icon {
+  position: relative;
+  right: 3px;
+  font-size: 0.9rem;
+  opacity: 0%;
+  cursor: pointer;
+}
+
 .project-name {
   font-size: 1.4rem;
   font-weight: 500;
@@ -41,15 +53,20 @@
 
 .todo {
   display: grid;
-  grid-template-columns: min-content 1fr minmax(0px, max-content);
+  grid-template-columns: min-content 1fr minmax(0px, max-content) min-content;
   grid-template-rows: max-content, max-content;
-  column-gap: 10px;
+  column-gap: 5px;
   row-gap: 5px;
   align-items: center;
   background-color: lighten($input, 4%);
   padding: 5px 10px;
+  padding-right: 0;
   font-size: 0.9rem;
   margin-bottom: 5px;
+
+  .name {
+    display: inline-block;
+  }
 
   .dueDate {
     font-size: 0.65rem;

@@ -2,7 +2,7 @@ import displayController from "./project_displayController";
 
 const projectModule = (() => {
   function update() {
-    console.log("projects updated!");
+    displayController.render();
   }
 
   return { update };

@@ -10,3 +10,7 @@ PubSub.subscribe("data_changed", () => {
   todoModule.update();
   todoDetailModule.update();
 });
+
+PubSub.subscribe("detail_changed", () => {
+  todoModule.update();
+});

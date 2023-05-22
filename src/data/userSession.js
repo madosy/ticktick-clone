@@ -10,6 +10,7 @@ const userSession = (() => {
     localStorage.setItem("initialized", true);
     localStorage.setItem(defaultInbox.id, JSON.stringify(defaultInbox));
     setActiveProjectId(defaultInbox.id);
+    setActiveTodoId("");
   }
   const getActiveProjectId = () => localStorage.getItem("tictoc.activeProject");
 
@@ -18,10 +19,11 @@ const userSession = (() => {
     PubSub.publish("data_changed");
   }
   function getActiveTodoId() {
-    localStorage.getItem("tictoc.activeTodo");
+    return localStorage.getItem("tictoc.activeTodo");
   }
   function setActiveTodoId(todoId) {
     localStorage.setItem("tictoc.activeTodo", todoId);
+    PubSub.publish("data_changed");
   }
 
   return {

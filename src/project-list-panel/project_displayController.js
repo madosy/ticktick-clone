@@ -6,6 +6,7 @@ import "./modal/createProjectModal";
 const project_displayController = (() => {
   function render() {
     const projectPanel = document.querySelector("div.project-panel");
+    projectPanel.innerHTML = "";
     const smartFolders = generateSmartFolderList();
     const projectList = generateProjectsList();
 
@@ -18,4 +19,4 @@ const project_displayController = (() => {
   return { render };
 })();
 
-export default { project_displayController };
+export default project_displayController;

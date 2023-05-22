@@ -6,7 +6,6 @@ function addTodo(newTodoName) {
   const newTodo = createNewTodo(newTodoName);
   saveTodoToLocalStorage(newTodo);
   addTodoToParentList(newTodo.id);
-  console.log(newTodo);
 
   function createNewTodo(todoName) {
     const generatedID = `tictoc.todo_${randomNumString()}`;
@@ -15,8 +14,8 @@ function addTodo(newTodoName) {
       id: generatedID,
       checked: false,
       description: "",
-      priority: undefined,
-      dueDate: undefined,
+      priority: "none",
+      dueDate: null,
     };
     return newTodo;
   }
@@ -26,13 +25,13 @@ function addTodo(newTodoName) {
   }
 
   function addTodoToParentList(todoID) {
-    //getactiveprojectid
+    // getactiveprojectid
     const activeProjectId = userSession.getActiveProjectId();
     const activeProject = todoDataModule.getByID(activeProjectId);
     activeProject.children.push(todoID);
     todoDataModule.project.update(activeProject);
 
-    //addchildtoactiveproject
+    // addchildtoactiveproject
   }
 }
 
