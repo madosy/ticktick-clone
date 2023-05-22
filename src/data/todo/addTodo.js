@@ -10,7 +10,14 @@ function addTodo(newTodoName) {
 
   function createNewTodo(todoName) {
     const generatedID = `tictoc.todo_${randomNumString()}`;
-    const newTodo = { name: todoName, id: generatedID, parentId: "ticktock" };
+    const newTodo = {
+      name: todoName,
+      id: generatedID,
+      checked: false,
+      description: "",
+      priority: undefined,
+      dueDate: undefined,
+    };
     return newTodo;
   }
 

@@ -4,6 +4,7 @@ import removeProject from "./project/removeProject";
 import getByID from "./helper/getByID";
 import updateProject from "./project/updateProject";
 import addTodo from "./todo/addTodo";
+import updateTodo from "./todo/updateTodo";
 
 const todoDataModule = (() => {
   return {
@@ -16,6 +17,7 @@ const todoDataModule = (() => {
     todo: {
       add: addTodo,
       remove: (todoID) => {},
+      update: updateTodo,
     },
     getByID,
   };
