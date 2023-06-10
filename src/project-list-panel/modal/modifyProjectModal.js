@@ -9,6 +9,7 @@ const modifyProjectModal = (() => {
   const title = document.createElement("div");
   const form = document.createElement("form");
   const input = document.createElement("input");
+  const deleteButton = document.createElement("button");
   const submitButton = document.createElement("button");
 
   myModal.classList.add("modify-project");
@@ -45,6 +46,16 @@ const modifyProjectModal = (() => {
     } else submitButton.disabled = true;
   });
 
+  deleteButton.innerText = "Delete";
+  deleteButton.setAttribute("type", "button");
+  deleteButton.addEventListener("click", (e) => {
+    const activeProjectID = userSession.getActiveProjectId();
+    userSession.setActiveProjectId("tictoc.inbox");
+    userSession.setActiveTodoId("");
+    todoDataModule.project.remove(activeProjectID);
+    myModal.close();
+  });
+
   submitButton.innerText = "Submit";
   submitButton.setAttribute("type", "submit");
   submitButton.disabled = true;
@@ -57,6 +68,7 @@ const modifyProjectModal = (() => {
   };
 
   form.appendChild(input);
+  form.appendChild(deleteButton);
   form.appendChild(submitButton);
   myModal.appendChild(title);
   myModal.appendChild(form);

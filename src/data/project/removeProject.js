@@ -1,8 +1,8 @@
 import projectList from "./projectList";
 
 function removeProject(projectId) {
-  localStorage.removeItem(projectId);
   projectList.remove(projectId);
+  localStorage.removeItem(projectId);
 }
 
 export default removeProject;

@@ -1,9 +1,7 @@
 const projectList = (() => {
   function getProjectsListArray() {
-    const isProjectListInitialized = () =>
-      localStorage.getItem("tictoc.project-list") !== null;
-    const initializeProjectList = () =>
-      localStorage.setItem("tictoc.project-list", "[]");
+    const isProjectListInitialized = () => localStorage.getItem("tictoc.project-list") !== null;
+    const initializeProjectList = () => localStorage.setItem("tictoc.project-list", "[]");
 
     if (!isProjectListInitialized()) initializeProjectList();
     const rawProjectsArrayData = localStorage.getItem("tictoc.project-list");
@@ -19,7 +17,7 @@ const projectList = (() => {
 
   const removeProjectFromList = (projectId) => {
     const projectsArray = getProjectsListArray();
-    const removeIndex = projectsArray.indexOf(id);
+    const removeIndex = projectsArray.indexOf(projectId);
     projectsArray.splice(removeIndex, 1);
     localStorage.setItem("tictoc.project-list", JSON.stringify(projectsArray));
   };
