@@ -1,9 +1,10 @@
 import PubSub from "pubsub-js";
 import todoDataModule from "../../data/todoDataModule";
+import getActiveTodoObject from "../../data/todo/getActiveTodoObject";
 
-function generateTodoDescriptionField(todoObject) {
+function generateTodoDescriptionField() {
   const descriptionField = document.createElement("div");
-  const myTodoDescriptionHTML = todoObject.description;
+  const myTodoDescriptionHTML = getActiveTodoObject().description;
   const isDefined = (text) => text !== undefined;
 
   descriptionField.contentEditable = true;
@@ -13,9 +14,10 @@ function generateTodoDescriptionField(todoObject) {
   }
 
   descriptionField.addEventListener("input", () => {
+    const myTodoObject = getActiveTodoObject();
     const newDescription = descriptionField.innerHTML;
-    todoObject.description = newDescription;
-    todoDataModule.todo.update(todoObject);
+    myTodoObject.description = newDescription;
+    todoDataModule.todo.update(myTodoObject);
     PubSub.publish("detail_changed");
   });
 

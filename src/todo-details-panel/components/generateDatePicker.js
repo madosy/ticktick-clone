@@ -1,11 +1,12 @@
 import { format, isDate } from "date-fns";
 import PubSub from "pubsub-js";
 import todoDataModule from "../../data/todoDataModule";
+import getActiveTodoObject from "../../data/todo/getActiveTodoObject";
 
-function generateDatePicker(todoObject) {
+function generateDatePicker() {
   const wrapper = document.createElement("span");
   const dateInput = document.createElement("input");
-  const rawDueDate = todoObject.dueDate;
+  const rawDueDate = getActiveTodoObject().dueDate;
 
   wrapper.classList.add("date");
   dateInput.setAttribute("type", "date");
@@ -17,9 +18,10 @@ function generateDatePicker(todoObject) {
   }
 
   dateInput.addEventListener("input", () => {
+    const myTodoObject = getActiveTodoObject();
     const newDueDate = new Date(`${dateInput.value}T00:00`);
-    todoObject.dueDate = newDueDate;
-    todoDataModule.todo.update(todoObject);
+    myTodoObject.dueDate = newDueDate;
+    todoDataModule.todo.update(myTodoObject);
     PubSub.publish("detail_changed");
   });
 
