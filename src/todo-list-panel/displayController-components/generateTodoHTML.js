@@ -14,9 +14,11 @@ const generateTodoHTML = (todoID) => {
   const deleteIcon = document.createElement("span");
 
   container.classList.add("todo");
+  container.dataset.priority = todoObject.todoPriority;
   container.addEventListener("click", () => userSession.setActiveTodoId(todoID));
 
   checkbox.setAttribute("type", "checkbox");
+  checkbox.classList.add("todo-checkbox");
   checkbox.checked = todoObject.checked;
   checkbox.addEventListener("input", () => {
     const checkboxStatus = checkbox.checked;

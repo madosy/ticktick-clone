@@ -7,6 +7,17 @@
   gap: 5px;
 }
 
+button.modify-project {
+  position: relative;
+  top: 3px;
+  opacity: 20%;
+  margin-left: 10px;
+
+  &:hover {
+    opacity: 60%;
+  }
+}
+
 .todo:hover .delete-todo-icon {
   opacity: 40%;
 }
@@ -83,8 +94,21 @@
     text-overflow: ellipsis;
   }
 
-  input:checked + .title {
+  input:checked + .name {
     text-decoration: line-through;
     color: lighten(gray, 20%);
   }
+}
+
+.todo[data-priority="high"] {
+  box-shadow: inset 3px 0px red;
+}
+.todo[data-priority="medium"] {
+  box-shadow: inset 3px 0px goldenrod;
+}
+.todo[data-priority="low"] {
+  box-shadow: inset 3px 0px green;
+}
+.todo:has(input:checked) {
+  box-shadow: none;
 }

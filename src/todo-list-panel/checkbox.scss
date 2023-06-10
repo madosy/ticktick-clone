@@ -1,0 +1,29 @@
+input[type="checkbox"].todo-checkbox {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: hsl(2deg 9% 48%);
+  width: 1em;
+  height: 1em;
+  border: 0.1em solid hsl(2deg 9% 48%);
+  border-radius: 0.15em;
+  transform: translateY(-0.075em);
+  display: grid;
+  place-content: center;
+
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em hsl(2deg 9% 30%);
+    transform-origin: bottom left;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+}

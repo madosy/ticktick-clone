@@ -5,6 +5,7 @@ import todoDataModule from "../data/todoDataModule";
 
 const generateProjectsList = () => {
   const container = document.createElement("div");
+  container.classList.add("project-list");
   const projectHeader = generateProjectsHeader();
   container.appendChild(projectHeader);
 

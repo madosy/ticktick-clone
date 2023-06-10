@@ -3,6 +3,7 @@ import activeProjectName from "./displayController-components/projectName";
 import addTodoModule from "./displayController-components/addTodoModule";
 import listModule from "./displayController-components/listModule";
 import "./todoListPanel_style.scss";
+import "./checkbox.scss";
 
 import { userSession } from "../data/userSession";
 

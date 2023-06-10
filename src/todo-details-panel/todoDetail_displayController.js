@@ -6,6 +6,7 @@ import generateCheckbox from "./components/generateCheckbox";
 import generatePriorityIcon from "./components/generatePriorityIcon";
 import generateTodoNameField from "./components/generateTodoNameField";
 import generateTodoDescriptionField from "./components/generateTodoDescriptionField";
+import "./todoDetail_style.scss";
 
 const todoDetail_displayController = (() => {
   function render() {

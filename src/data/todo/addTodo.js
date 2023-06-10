@@ -14,7 +14,7 @@ function addTodo(newTodoName) {
       id: generatedID,
       checked: false,
       description: "",
-      priority: "none",
+      todoPriority: "none",
       dueDate: null,
     };
     return newTodo;

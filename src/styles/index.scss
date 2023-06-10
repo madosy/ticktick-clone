@@ -90,7 +90,7 @@ body {
     overflow: hidden;
   }
 
-  .nav-column {
+  .sidebar {
     background-color: $darker-main;
     border-radius: 15px 0px 0px 15px;
     grid-area: nav;
@@ -112,11 +112,7 @@ body {
       content: "";
       width: 1px;
       height: 100%;
-      background-image: linear-gradient(
-        $light-contentbody,
-        $darker-main,
-        $darker-main
-      );
+      background-image: linear-gradient($light-contentbody, $darker-main, $darker-main);
       display: block;
       position: absolute;
       top: 0;

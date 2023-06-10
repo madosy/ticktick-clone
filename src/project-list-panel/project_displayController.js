@@ -2,6 +2,7 @@ import "./projectsPanel.scss";
 import { generateSmartFolderList } from "./generateSmartFolderList";
 import generateProjectsList from "./generateProjectsList";
 import "./modal/createProjectModal";
+import "./modal/modifyProjectModal";
 
 const project_displayController = (() => {
   function render() {

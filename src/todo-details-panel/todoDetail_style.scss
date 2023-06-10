@@ -1,4 +1,4 @@
-@import "./color-theme.scss";
+@import "../styles/color-theme.scss";
 
 .detail-panel {
   position: relative;
@@ -31,6 +31,34 @@
     width: 100px;
     margin-bottom: 20px;
     border-radius: 50px;
+  }
+}
+
+span.priority {
+  user-select: none;
+  cursor: pointer;
+
+  &[data-priority="none"] {
+    opacity: 50%;
+  }
+  &[data-priority="low"] {
+    color: green;
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+    }
+  }
+  &[data-priority="medium"] {
+    color: goldenrod;
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+    }
+  }
+
+  &[data-priority="high"] {
+    color: red;
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+    }
   }
 }
 

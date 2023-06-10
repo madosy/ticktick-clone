@@ -1,5 +1,6 @@
 import PubSub from "pubsub-js";
 import todoDataModule from "../../data/todoDataModule";
+import getActiveTodoObject from "../../data/todo/getActiveTodoObject";
 
 function generateTodoNameField(todoObject) {
   const todoNameField = document.createElement("div");
@@ -11,8 +12,9 @@ function generateTodoNameField(todoObject) {
 
   todoNameField.addEventListener("input", () => {
     const newName = todoNameField.innerText;
-    todoObject.name = newName;
-    todoDataModule.todo.update(todoObject);
+    const myTodoObject = getActiveTodoObject();
+    myTodoObject.name = newName;
+    todoDataModule.todo.update(myTodoObject);
     PubSub.publish("detail_changed");
   });
 

@@ -1,7 +1,8 @@
 import todoDataModule from "../../data/todoDataModule";
+import userSession from "../../data/userSession";
 import "./modal-style.scss";
 
-//put it on hold until i finish implementing the edit button on todo list page.
+// put it on hold until i finish implementing the edit button on todo list page.
 const modifyProjectModal = (() => {
   const modalContainer = document.querySelector("#modal-container");
   const myModal = document.createElement("dialog");
@@ -10,7 +11,7 @@ const modifyProjectModal = (() => {
   const input = document.createElement("input");
   const submitButton = document.createElement("button");
 
-  myModal.classList.add("add-project");
+  myModal.classList.add("modify-project");
   myModal.addEventListener("click", (e) => {
     const dialogDimensions = myModal.getBoundingClientRect();
     if (
@@ -24,14 +25,20 @@ const modifyProjectModal = (() => {
   });
 
   title.classList.add("title");
-  title.innerText = "Create Project";
+  title.innerText = "Modify Project";
 
   form.setAttribute("formmethod", "dialog");
   form.addEventListener("submit", (event) => {
-    todoDataModule.project.add(input.value);
+    const activeProjectID = userSession.getActiveProjectId();
+    const activeProjectObject = todoDataModule.getByID(activeProjectID);
+    activeProjectObject.name = input.value;
+    todoDataModule.project.update(activeProjectObject);
   });
 
   input.setAttribute("type", "text");
+  const activeProjectID = userSession.getActiveProjectId();
+  const activeProjectObject = todoDataModule.getByID(activeProjectID);
+  input.value = activeProjectObject.name;
   input.addEventListener("input", () => {
     if (input.value.length > 0) {
       submitButton.disabled = false;
@@ -42,7 +49,12 @@ const modifyProjectModal = (() => {
   submitButton.setAttribute("type", "submit");
   submitButton.disabled = true;
 
-  const show = () => myModal.showModal();
+  const show = () => {
+    const activeProjectID = userSession.getActiveProjectId();
+    const activeProjectObject = todoDataModule.getByID(activeProjectID);
+    input.value = activeProjectObject.name;
+    myModal.showModal();
+  };
 
   form.appendChild(input);
   form.appendChild(submitButton);
