@@ -48,6 +48,7 @@ const createProjectModal = (() => {
   myModal.appendChild(title);
   myModal.appendChild(form);
   modalContainer.appendChild(myModal);
+  myModal.close();
 
   return { show };
 })();
