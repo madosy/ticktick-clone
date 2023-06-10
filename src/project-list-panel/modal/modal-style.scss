@@ -2,33 +2,40 @@
 @import "../../styles/color-theme.scss";
 
 dialog {
+  border: 1px solid rgba($darker-main, 0.3);
+  box-shadow: 0 2px 10px rgba($darker-main, 0.5);
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  margin: auto;
+  margin-top: 20svh;
+
+  .title {
+    font-size: 1rem;
+  }
+
   form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
     /* min-width: 200px; */
-    height: min-content;
     background-color: lighten($light-contentbody, 5%);
     opacity: 100%;
-    padding: 30px 20px;
-    border: 1px solid rgba($darker-main, 0.3);
-    box-shadow: 0 2px 10px rgba($darker-main, 0.5);
-    border-radius: 10px;
     flex-grow: 1;
-    margin: 20px;
     max-width: 300px;
 
-    h1 {
-      font-size: 1rem;
-    }
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
 
     input {
       align-self: stretch;
       border: 1px solid rgba($darker-main, 1);
       border-radius: 10px;
       padding: 5px;
+      grid-column: span 2;
     }
 
     .description {
